@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
@@ -82,9 +83,11 @@ class UserController extends Controller
      {
          $user = User::find($id);
          $roles = Role::pluck('name','name')->all();
+         $permissions = Permission::pluck('name','name')->all();
          $userRole = $user->roles->pluck('name','name')->all();
+         $userPermission = $user->permissions->pluck('name','name')->all();
      
-         return view('admin.users.edit',compact('user','roles','userRole'));
+         return view('admin.users.edit',compact('user','roles','userRole','permissions','userPermission'));
      }
      
      /**

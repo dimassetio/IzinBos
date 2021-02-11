@@ -234,111 +234,52 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
-        // [
-        //     'text'    => 'multilevel',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //     ],
-        // ],
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url'        => '#',
-        // ],
-        ['header' => 'USER'],
+        
+        // ['header' => 'USERS DATA'],
         [
-            'text'       => 'User List',
-            'url'        => 'users',
+            'text'       => 'Manage User',
             'icon'       => 'fas fa-fw fa-user',
+            'submenu'    => [
+                [
+                    'text'       => 'User',
+                    'url'        => 'users',
+                    'icon'       => 'fas fa-fw fa-user',
+                ],
+                [
+                    'text'       => 'Role',
+                    'url'        => 'roles',
+                    'icon'       => 'fas fa-fw fa-user-tag',
+                ],
+                [
+                    'text'       => 'Permission',
+                    'url'        => 'permissions',
+                    'icon'       => 'fas fa-fw fa-unlock',
+                ],
+            ]
         ],
+
         [
-            'text'       => 'User Create',
-            'url'        => 'users/create',
-            'icon'       => 'fas fa-fw fa-plus',
+            'text'       => 'Kepegawaian',
+            'icon'       => 'fas fa-fw fa-briefcase',
+            'submenu'    => [
+                [
+                    'text'       => 'Jabatan',
+                    'url'        => 'jabatan',
+                    'icon'       => 'fas fa-fw fa-address-card',
+                ],
+                [
+                    'text'       => 'Tunjangan',
+                    'url'        => 'tunjangan',
+                    'icon'       => 'fas fa-fw fa-gift',
+                ],
+                [
+                    'text'       => 'Potongan',
+                    'url'        => 'potongan',
+                    'icon'       => 'fas fa-fw fa-money-check',
+                ],
+            ]
         ],
-        ['header' => 'ROLE'],
-        [
-            'text'       => 'Role List',
-            'url'        => 'roles',
-            'icon'       => 'fas fa-fw fa-user-tag',
-        ],
-        [
-            'text'       => 'Role Create',
-            'url'        => 'roles/create',
-            'icon'       => 'fas fa-fw fa-plus',
-        ],
-        ['header' => 'PERMISSION'],
-        [
-            'text'       => 'Permission List',
-            'url'        => 'permissions',
-            'icon'       => 'fas fa-fw fa-list',
-        ],
-        [
-            'text'       => 'Permission Create',
-            'url'        => 'permissions/create',
-            'icon'       => 'fas fa-fw fa-plus',
-        ],
+
     ],
 
     /*
@@ -377,21 +318,21 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],

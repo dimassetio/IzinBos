@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use DB;
     
 class PermissionController extends Controller
@@ -30,7 +31,9 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = Permission::orderBy('id','DESC')->paginate(10);
+        $permissions = Permission::orderBy('id');
+        // return view('admin.permissions.index',compact('permissions'));
+        $permissions = Permission::orderBy('id','DESC')->paginate();
         return view('admin.permissions.index',compact('permissions'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -56,12 +59,10 @@ class PermissionController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:permissions,name',
-            'permission' => 'required',
+            // 'permission' => 'required',
         ]);
-    
-        $role = Permission::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
-    
+        Permission::create($request->all());
+        
         return redirect()->route('permissions.index')
                         ->with('success','Permission created successfully');
     }
@@ -89,10 +90,10 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $role = Permission::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+        $permission = Permission::find($id);
+        $role= Role::get();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.permission_id",$id)
+            ->pluck('role_has_permissions.role_id','role_has_permissions.role_id')
             ->all();
     
         return view('admin.permissions.edit',compact('role','permission','rolePermissions'));
@@ -109,14 +110,12 @@ class PermissionController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'permission' => 'required',
+            // 'role' => 'required',
         ]);
     
-        $role = Permission::find($id);
-        $role->name = $request->input('name');
-        $role->save();
-    
-        $role->syncPermissions($request->input('permission'));
+        $permission= Permission::find($id);
+        $permission->name = $request->input('name');
+        $permission->save();
     
         return redirect()->route('permissions.index')
                         ->with('success','Permission updated successfully');

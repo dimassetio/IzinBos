@@ -25,6 +25,9 @@ Route::group(['middleware' => ['auth']],function(){
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('permissions', PermissionController::class);
+    Route::resource('jabatan', JabatanController::class);
+    Route::resource('tunjangan', TunjanganController::class);
+    Route::resource('potongan', PotonganController::class);
 });
 
 // Route::get('/home', function() {

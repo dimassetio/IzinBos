@@ -49,9 +49,10 @@
                     <label> Role</label>
                     @foreach ($roles as $data)
                     <div class="checkbox">
-                      <label  for="role" class="col-sm-2 control-label">{!! $data !!}</label>
-                        {!! Form::checkbox('roles[]', $data, array('class' => 'form-control', 'id' => 'role')); !!}
-                      </div>
+                        <label class="col-sm-2 control-label">
+                          {!! Form::checkbox('roles[]', $data, array('class' => 'form-control name')); !!}
+                          {!! $data !!}
+                        </label>
                     @endforeach
                   </div>
                 </div>
