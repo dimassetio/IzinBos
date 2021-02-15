@@ -239,20 +239,24 @@ return [
         [
             'text'       => 'Manage User',
             'icon'       => 'fas fa-fw fa-user',
+            'can'       => ['user-list','role-list','permission-list'],
             'submenu'    => [
                 [
                     'text'       => 'User',
                     'url'        => 'users',
+                    'can'        => 'user-list',
                     'icon'       => 'fas fa-fw fa-user',
                 ],
                 [
                     'text'       => 'Role',
                     'url'        => 'roles',
+                    'can'        => 'role-list',
                     'icon'       => 'fas fa-fw fa-user-tag',
                 ],
                 [
                     'text'       => 'Permission',
                     'url'        => 'permissions',
+                    'can'        => 'permission-list',
                     'icon'       => 'fas fa-fw fa-unlock',
                 ],
             ]
@@ -263,18 +267,27 @@ return [
             'icon'       => 'fas fa-fw fa-briefcase',
             'submenu'    => [
                 [
+                    'text'       => 'Pegawai',
+                    'url'        => 'pegawai',
+                    'can'        => 'pegawai-list',
+                    'icon'       => 'far fa-fw fa-user',
+                ],
+                [
                     'text'       => 'Jabatan',
                     'url'        => 'jabatan',
+                    'can'        => 'jabatan-list',
                     'icon'       => 'fas fa-fw fa-address-card',
                 ],
                 [
                     'text'       => 'Tunjangan',
                     'url'        => 'tunjangan',
+                    'can'        => 'tunjangan-list',
                     'icon'       => 'fas fa-fw fa-gift',
                 ],
                 [
                     'text'       => 'Potongan',
                     'url'        => 'potongan',
+                    'can'        => 'potongan-list',
                     'icon'       => 'fas fa-fw fa-money-check',
                 ],
             ]

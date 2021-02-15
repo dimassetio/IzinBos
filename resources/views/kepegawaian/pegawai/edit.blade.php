@@ -7,19 +7,10 @@
 @stop
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
   <div class="box box-info">
     <!-- form start -->
-    {!! Form::open(array('route' => 'jabatan.store','method' => 'POST')) !!}
+    {!! Form::model($jabatan, ['method' => 'PATCH', 'route' => ['jabatan.update',$jabatan->id]]) !!}
     <!-- {!! Form::open(array('route' => 'roles.store','method' => 'POST')) !!} -->
       <div class="box-body">
         <div class="form-group">

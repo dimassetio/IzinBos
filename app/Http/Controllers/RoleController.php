@@ -79,7 +79,7 @@ class RoleController extends Controller
             ->where("role_has_permissions.role_id",$id)
             ->get();
     
-        return view('roles.show',compact('role','rolePermissions'));
+        return view('admin.roles.show',compact('role','rolePermissions'));
     }
     
     /**

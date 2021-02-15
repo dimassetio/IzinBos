@@ -3,8 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Data Jabatan</h1>    
-
+    <h1>Data Pegawai</h1>    
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
@@ -32,34 +31,48 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-            <table id="example1" class="table table-bordered table-hover text-center justify-content-center">
+            <table id="example1" class="table table-bordered table-hover text-center">
             <thead>
               <tr>
-                <th>Nama Jabatan</th>
-                <th>Gaji Pokok</th>
-                <th>Bonus Professional</th>
-                @if(auth()->user()->hasAnyPermission(['jabatan-edit','jabatan-delete']))
-                    <th>Action</th> 
-                @endif
+                <th>Nama Pegawai</th>
+                <th>Email</th>
+                <th>Alamat</th>
+                <th>Tanggal Masuk</th>
+                <th>Rekening</th>
+                <th>Type Pegawai</th>
+                <th>Bank ID</th>
+                <th>Jabatan </th>
+                <th>Bonus Loyalitas</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($data as $jabatan)
+              @foreach($pegawai as $pegawai)
                 <tr>
-                  <td><?= $jabatan->nama_jabatan; ?> </td>
-                  <td><?= $jabatan->gaji_pokok; ?> </td>
-                  <td><?= $jabatan->bonus_professional; ?> </td>
-                  @if(auth()->user()->hasAnyPermission(['jabatan-edit','jabatan-delete']))
+                  <td><?= $pegawai->nama; ?> </td>
+                  <td><?= $pegawai->email; ?> </td>
+                  <td><?= $pegawai->alamat; ?> </td>
+                  <td><?= $pegawai->tanggal_masuk; ?> </td>
+                  <td><?= $pegawai->rekening; ?> </td>
+                  <td><?= $pegawai->type_pegawai; ?> </td>
+                  <td><?= $pegawai->bank_id; ?> </td>
+                  <td><?= $pegawai->getJabatanName($pegawai->jabatan_id); ?></td>
+                  <td><?= $pegawai->getBonus($pegawai->jabatan_id); ?></td>
+                  
+                  @if(auth()->user()->hasAnyPermission(['pegawai-edit','pegawai-delete']))
                   <td>
                     <div class="row justify-content-center">
-                    @can('jabatan-edit')
                       <div class="mx-2">
-                        <a class="btn btn-primary btn-sm" href="{{route('jabatan.edit', $jabatan->id)}}">edit</a>
+                        <a class="btn btn-info btn-sm" href="{{route('pegawai.show', $pegawai->id)}}">show</a>
+                      </div>
+                    @can('pegawai-edit')
+                      <div class="mx-2">
+                        <a class="btn btn-primary btn-sm" href="{{route('pegawai.edit', $pegawai->id)}}">edit</a>
                       </div>
                       @endcan
-                      @can('jabatan-delete')
+                      @can('pegawai-delete')
                       <div class="mx-2">
-                        {!! Form::open(['method' => 'DELETE','route' => ['jabatan.destroy', $jabatan->id],'style'=>'display:inline']) !!}
+                        {!! Form::open(['method' => 'DELETE','route' => ['pegawai.destroy', $pegawai->id],'style'=>'display:inline']) !!}
                           {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                         {!! Form::close() !!}
                       </div>
@@ -75,8 +88,8 @@
       </div>
     </div>
     <div class="col-xs">
-    @can('jabatan-create')        
-        <a href="<?= route('jabatan.create') ?>" class="btn btn-app float-right">
+    @can('pegawai-create')        
+        <a href="<?= route('pegawai.create') ?>" class="btn btn-app float-right">
             <i class="fas fa-edit"></i> Tambah
         </a>
     @endcan

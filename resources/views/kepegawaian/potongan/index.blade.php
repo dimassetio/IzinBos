@@ -1,24 +1,38 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Dashboard')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Data Potongan</h1>
+    <h1>Data Potongan</h1>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
 @stop
 
 @section('content')
+    <div class="row">
+        <div class="col">
+            <div class="card ">
+            <div class="card-header">
 
- <section class="content">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-      @can('potongan-create')
-        <div class="box-header">
-         <a href="potongan/create" class="btn btn-primary btn-sm my-3"> Tambah Potongan </a>
-        </div>
-      @endcan
-        <div class="box-body">
-          <table id="example1" class="table table-bordered table-hover">
+                <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+            <table id="example1" class="table table-bordered table-hover text-center">
             <thead>
               <tr>
                 <th>Nama Potongan</th>
@@ -35,14 +49,14 @@
                   <td><?= $potongan->besar_potongan; ?> </td>
                   @if(auth()->user()->hasAnyPermission(['potongan-edit','potongan-delete']))
                   <td>
-                    <div class="row">
+                    <div class="row justify-content-center">
                     @can('potongan-edit')
-                      <div class="col">
+                      <div class="mx-2">
                         <a class="btn btn-primary btn-sm" href="{{route('potongan.edit', $potongan->id)}}">edit</a>
                       </div>
                       @endcan
                       @can('potongan-delete')
-                      <div class="col">
+                      <div class="mx-2">
                         {!! Form::open(['method' => 'DELETE','route' => ['potongan.destroy', $potongan->id],'style'=>'display:inline']) !!}
                           {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                         {!! Form::close() !!}
@@ -58,6 +72,20 @@
         </div>
       </div>
     </div>
+    <div class="col-xs">
+    @can('potongan-create')        
+        <a href="<?= route('potongan.create') ?>" class="btn btn-app float-right">
+            <i class="fas fa-edit"></i> Tambah
+        </a>
+    @endcan
+    </div>
   </div>
-</section>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
 @stop

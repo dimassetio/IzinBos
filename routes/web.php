@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('permissions', PermissionController::class);
+    Route::resource('pegawai', PegawaiController::class);
     Route::resource('jabatan', JabatanController::class);
     Route::resource('tunjangan', TunjanganController::class);
     Route::resource('potongan', PotonganController::class);
@@ -33,3 +34,9 @@ Route::group(['middleware' => ['auth']],function(){
 // Route::get('/home', function() {
 //     return view('home');
 // })->name('home')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');

@@ -13,6 +13,15 @@ use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:user-create', ['only' => ['create','store']]);
+         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+     
      /**
      * Display a listing of the resource.
      *
@@ -70,7 +79,12 @@ class UserController extends Controller
      public function show($id)
      {
          $user = User::find($id);
-         return view('admin.users.show',compact('user'));
+         $roles = Role::pluck('name','name')->all();
+         $permissions = Permission::pluck('name','name')->all();
+         $userRole = $user->roles->pluck('name','name')->all();
+         $userPermission = $user->permissions->pluck('name','name')->all();
+     
+         return view('admin.users.show',compact('user','roles','userRole','permissions','userPermission'));
      }
      
      /**

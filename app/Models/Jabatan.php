@@ -12,4 +12,10 @@ class Jabatan extends Model
     protected $table = 'jabatan';
 
     protected $fillable = ['nama_jabatan', 'gaji_pokok', 'bonus_professional'];
+
+    public function pegawai()
+    {
+        return $this->belongsTo('App/Models/User');
+    }
+    
 }
