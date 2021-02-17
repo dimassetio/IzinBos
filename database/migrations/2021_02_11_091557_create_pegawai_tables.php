@@ -15,7 +15,7 @@ class CreatePegawaiTables extends Migration
     {
         
         Schema::create('pegawai', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id')->primary();
             $table->string('nama')->nullable();
             $table->string('email')->nullable();
             $table->string('alamat')->nullable();
@@ -24,15 +24,17 @@ class CreatePegawaiTables extends Migration
             $table->string('type_pegawai')->nullable();
             $table->string('bank_id')->nullable();
             $table->unsignedBigInteger('jabatan_id')->nullable();
-            $table->integer('bonus_loyalitas')->nullable();
+            // $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedInteger('bonus_loyalitas')->nullable();
             $table->foreign('jabatan_id')
                 ->references('id')
                 ->on('jabatan')
                 ->onDelete('set null');
-            $table->foreign('bonus_loyalitas')
-                ->references('bonus_professional')
-                ->on('jabatan')
-                ->onDelete('set null');
+            $table->foreign('id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
 

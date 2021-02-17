@@ -51,6 +51,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+        <button type="reset" class="btn btn-primary">Cancel</button>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </div>

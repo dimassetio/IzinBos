@@ -1,47 +1,46 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Dashboard')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Role Detail</h1>
+   
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
 @stop
 
 @section('content')
 <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name :</strong>
-                {{ $role->name }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Permissions: </strong>
-                @if(!empty($rolePermissions))
-                <ul>
-                    @foreach($rolePermissions as $v)                        
-                            <li>{{ $v->name }}</li>
-                    @endforeach
-                </ul>
-                @endif                
-            </div>
-        </div>
+  <div class="col col-sm-6 mx-auto">
+    <div class="card">
+      <div class="card-header text-center">
+        <h5>Detail Data Pegawai</h5>
+      </div>   
+      <div class="card-body table-striped p-0">
+        <table id="example1" class="table  table-striped">
+          <tbody>
+              <tr>
+                <td class="w-25">Name </td>
+                <td> : </td>
+                <td><?= $role->name; ?> </td>
+              </tr>
+              @foreach($rolePermissions as $data)
+              <tr>
+                <td>Permission </td>
+                <td> : </td>                            
+                <td><?= $data->name; ?></td>
+              </tr>
+             @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer text-center">
+        <a href=" <?= route('users.index') ?> " class="btn btn-primary btn-sm">Back</a>
+      </div>
     </div>
-
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
-            </div>
-        </div>
-    </div>
+  </div>
+</div>
 @stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
-                

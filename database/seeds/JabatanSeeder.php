@@ -13,14 +13,14 @@ class JabatanSeeder extends Seeder
     public function run()
     {
         $jabatan = Jabatan::create([
-            'nama_jabatan' => 'CEO',
-            'gaji_pokok' => '10000000',
-            'bonus_professional' => '5000000',
+            'nama_jabatan' => 'Produksi',
+            'gaji_pokok' => '4000000',
+            'bonus_professional' => '500000',
         ]);
         $jabatan = Jabatan::create([
-            'nama_jabatan' => 'CTO',
-            'gaji_pokok' => '8000000',
-            'bonus_professional' => '4000000',
+            'nama_jabatan' => 'Salesman',
+            'gaji_pokok' => '3000000',
+            'bonus_professional' => '600000',
         ]);
     }
 }

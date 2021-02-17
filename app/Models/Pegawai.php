@@ -17,6 +17,7 @@ class Pegawai extends Model
         'type_pegawai', 
         'bank_id', 
         'jabatan_id', 
+        'id',
         'bonus_loyalitas'
     ];
 

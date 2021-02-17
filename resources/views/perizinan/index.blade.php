@@ -6,13 +6,6 @@
     <h1>Data Pegawai</h1>    
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    @if ($message = Session::get('errors'))
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <p>{{ $message }}</p>
         </div>
     @endif
@@ -22,7 +15,7 @@
 @section('content')
     <div class="row">
         <div class="col">
-            <div class="card">
+            <div class="card ">
             <div class="card-header">
                 <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -41,46 +34,58 @@
             <table id="example1" class="table table-bordered table-hover text-center">
             <thead>
               <tr>
-                <th>Nama Pegawai</th>
-                <th>Email</th>
-                <th>Alamat</th>
-                <th>Tanggal Masuk</th>
-                <th>Rekening</th>
-                <th>Type Pegawai</th>
-                <th>Bank ID</th>
-                <th>Jabatan </th>
-                <th>Bonus Loyalitas</th>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Selesai</th>
+                <th>Tipe Izin</th>
+                <th>Keterangan</th>
+                <th>Status Diterima</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($pegawai as $pegawai)
+              <?php $no=1; ?>
+              @foreach($izin as $izin)
                 <tr>
-                  <td><?= $pegawai->nama; ?> </td>
-                  <td><?= $pegawai->email; ?> </td>
-                  <td><?= $pegawai->alamat; ?> </td>
-                  <td><?= $pegawai->tanggal_masuk; ?> </td>
-                  <td><?= $pegawai->rekening; ?> </td>
-                  <td><?= $pegawai->type_pegawai; ?> </td>
-                  <td><?= $pegawai->bank_id; ?> </td>
+                  <td> <?= $no; ?></td>
+                  <?php $no++; ?>
                   <td>
-                    @if($pegawai->jabatan_id != null)
-                      <?= $pegawai->getJabatanName($pegawai->jabatan_id); ?>
+                    @if($izin->user_id != null)
+                      <?= $izin->getNamaPegawai($izin->user_id); ?>
                     @else 
                       <a href="#" class="badge badge-danger">Tidak Ada</a>
                     @endif
                   </td>
-                  <td><?= $pegawai->bonus_loyalitas; ?></td>
-                  
-                  @if(auth()->user()->hasAnyPermission(['pegawai-edit','pegawai-delete']))
+                  <td><?= $izin->tanggal_mulai; ?> </td>
+                  <td><?= $izin->tanggal_selesai; ?> </td>
+                  <td><?= $izin->type_izin; ?> </td>
+                  <td><?= $izin->keterangan; ?> </td>
+                  <td>
+                    @if($izin->status_diterima == 'menunggu')
+                      <a class="badge badge-warning">                    
+                    @elseif($izin->status_diterima == 'diterima')
+                      <a class="badge badge-success">
+                    @elseif($izin->status_diterima == 'ditolak')
+                      <a class="badge badge-danger">
+                    @endif
+                      <?= $izin->status_diterima; ?> 
+                    </a>
+                  </td> 
+                  @if(auth()->user()->hasAnyPermission(['izin-edit','izin-delete']))
                   <td>
                     <div class="row justify-content-center">
                       <div class="mx-2">
-                        <a class="btn btn-info btn-sm" href="{{route('pegawai.show', $pegawai->id)}}">show</a>
+                        <a class="btn btn-info btn-sm" href="{{route('izin.show', $izin->id)}}">show</a>
                       </div>
-                      @can('pegawai-delete')
+                    @can('izin-edit')
                       <div class="mx-2">
-                        {!! Form::open(['method' => 'DELETE','route' => ['pegawai.destroy', $pegawai->id],'style'=>'display:inline']) !!}
+                        <a class="btn btn-primary btn-sm" href="{{route('izin.edit', $izin->id)}}">edit</a>
+                      </div>
+                      @endcan
+                      @can('izin-delete')
+                      <div class="mx-2">
+                        {!! Form::open(['method' => 'DELETE','route' => ['izin.destroy', $izin->id],'style'=>'display:inline']) !!}
                           {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                         {!! Form::close() !!}
                       </div>
@@ -95,6 +100,12 @@
         </div>
       </div>
     </div>
+    <div class="col-xs">
+    @can('izin-create')        
+        <a href="<?= route('izin.create') ?>" class="btn btn-app float-right">
+            <i class="fas fa-edit"></i> Tambah
+        </a>
+    @endcan
     </div>
   </div>
 @stop

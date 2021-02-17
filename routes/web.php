@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
+use App\Models\Pegawai;
+use App\Models\Jabatan;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +28,15 @@ Route::group(['middleware' => ['auth']],function(){
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('permissions', PermissionController::class);
+    Route::get('/pegawai/data', 'PegawaiController@data')->name('pegawai.data');
     Route::resource('pegawai', PegawaiController::class);
     Route::resource('jabatan', JabatanController::class);
     Route::resource('tunjangan', TunjanganController::class);
     Route::resource('potongan', PotonganController::class);
+    Route::resource('izin', IzinController::class);
 });
 
-// Route::get('/home', function() {
-//     return view('home');
-// })->name('home')->middleware('auth');
+
 
 Auth::routes();
 

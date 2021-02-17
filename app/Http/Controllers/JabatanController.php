@@ -35,8 +35,7 @@ class JabatanController extends Controller
     {
         $this->validate($request, [
             'nama_jabatan' => 'required',
-            'gaji_pokok' => 'required',
-            'bonus_professional' => 'required'
+            'gaji_pokok' => 'required'
         ]);
         $input = $request->all();
         $jabatan = Jabatan::create($input);

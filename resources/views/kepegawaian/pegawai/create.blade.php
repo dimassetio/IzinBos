@@ -38,7 +38,7 @@
           <label for="inputAlamat" class="col-sm-2 control-label">Tanggal Masuk </label>
 
           <div class="col-sm-10">
-          {!! Form::date('tanggal_masuk', null, array('placeholder' => 'Tanggal Masuk ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
+          {!! Form::date('tanggal_masuk', \Carbon\Carbon::now(), array( 'class' => 'form-control', 'id' => 'InputAlamat')) !!}
           </div>
         </div>
         <div class="form-group">
@@ -78,7 +78,7 @@
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
-        <button type="submit" class="btn btn-default">Cancel</button>
+        <button type="reset" class="btn btn-default">Cancel</button>
         <button type="submit" class="btn btn-info pull-right">Submit</button>
       </div>
       <!-- /.box-footer -->

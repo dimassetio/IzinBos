@@ -1,51 +1,51 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Dashboard')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Data User List</h1>
+   
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
 @stop
 
-
 @section('content')
-
- <section class="content">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <div class="box-body">
-        <div class="box box-widget widget-user-2">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-yellow">
-              <!-- /.widget-user-image -->
-              <h3 class="widget-user-username"><?= $user->name; ?></h3>
-              <h5 class="widget-user-desc"><?= $user->email; ?></h5>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
-                <li><a href="#">Role 
-                  @foreach($userRole as $dataRole)
-                  <span class="pull-right badge bg-blue"><?= $dataRole; ?></span>
-                  @endforeach
-                </a></li>
-                <li><a href="#">Permission 
-                  @foreach($userPermission as $dataPermission)
-                  <span class="pull-right badge bg-blue"><?= $dataPermission; ?></span>
-                  @endforeach
-                </a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+<div class="row">
+  <div class="col col-sm-6 mx-auto">
+    <div class="card">
+      <div class="card-header text-center">
+        <h5>Detail Data Pegawai</h5>
+      </div>   
+      <div class="card-body table-striped p-0">
+        <table id="example1" class="table  table-striped">
+          <tbody>
+              <tr>
+                <td class="w-25">Name </td>
+                <td> : </td>
+                <td><?= $user->name; ?> </td>
+              </tr>
+              <tr>
+                <td>Email </td>
+                <td> : </td>
+                <td><?= $user->email; ?> </td>
+              </tr>
+              @foreach($userRole as $dataRole)
+              <tr>
+                <td>Role </td>
+                <td> : </td>                            
+                <td><?= $dataRole; ?></td>
+              </tr>
+              @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer text-center">
+        <a href=" <?= route('users.index') ?> " class="btn btn-primary btn-sm">Back</a>
       </div>
     </div>
   </div>
-</section>
-@stop
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
+</div>
 @stop

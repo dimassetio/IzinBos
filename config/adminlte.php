@@ -237,6 +237,18 @@ return [
         
         // ['header' => 'USERS DATA'],
         [
+            'text'       => 'Pengajuan Izin',
+            'url'        => 'izin/create',
+            // 'can'        => 'user-list',
+            'icon'       => 'fas fa-fw fa-paper',
+        ],
+        [
+            'text'       => 'Data Izin',
+            'url'        => 'izin',
+            // 'can'        => 'user-list',
+            'icon'       => 'fas fa-fw fa-paper',
+        ],
+        [
             'text'       => 'Manage User',
             'icon'       => 'fas fa-fw fa-user',
             'can'       => ['user-list','role-list','permission-list'],
@@ -266,6 +278,12 @@ return [
             'text'       => 'Kepegawaian',
             'icon'       => 'fas fa-fw fa-briefcase',
             'submenu'    => [
+                [
+                    'text'       => 'Biodata',
+                    'url'        => 'pegawai/data',
+                    'can'        => 'pegawai-data',
+                    'icon'       => 'far fa-fw fa-id-card',
+                ],
                 [
                     'text'       => 'Pegawai',
                     'url'        => 'pegawai',

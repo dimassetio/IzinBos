@@ -1,21 +1,4 @@
-<?php
-
-use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
-class PermissionTableSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        //
-        $permissions = [
-            'role-list',
+'role-list',
             'role-create',
             'role-edit',
             'role-delete',
@@ -23,7 +6,12 @@ class PermissionTableSeeder extends Seeder
             'permission-create',
             'permission-edit',
             'permission-delete',
+            'user-list',
+            'user-create',
+            'user-edit',
+            'user-delete',
             'pegawai-list',
+            'pegawai-data',
             'pegawai-create',
             'pegawai-edit',
             'pegawai-delete',
@@ -39,6 +27,11 @@ class PermissionTableSeeder extends Seeder
             'potongan-create',
             'potongan-edit',
             'potongan-delete',
+            'izin-list',
+            'izin-create',
+            'izin-edit',
+            'izin-delete',
+            'izin-confirmation',
         ];
 
         foreach ($permissions as $permission) {
