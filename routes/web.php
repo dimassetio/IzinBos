@@ -29,10 +29,12 @@ Route::group(['middleware' => ['auth']],function(){
     Route::resource('users', UserController::class);
     Route::resource('permissions', PermissionController::class);
     Route::get('/pegawai/data', 'PegawaiController@data')->name('pegawai.data');
+    Route::get('/pegawai/editbiodata', 'PegawaiController@editbiodata')->name('pegawai.editbiodata');
     Route::resource('pegawai', PegawaiController::class);
     Route::resource('jabatan', JabatanController::class);
     Route::resource('tunjangan', TunjanganController::class);
     Route::resource('potongan', PotonganController::class);
+    Route::patch('/izin/confirm/{id}', 'IzinController@confirm')->name('izin.confirm');
     Route::resource('izin', IzinController::class);
 });
 

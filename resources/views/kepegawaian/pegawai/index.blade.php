@@ -78,6 +78,11 @@
                       <div class="mx-2">
                         <a class="btn btn-info btn-sm" href="{{route('pegawai.show', $pegawai->id)}}">show</a>
                       </div>
+                      @can('biodata-edit')
+                      <div class="mx-2">
+                        <a class="btn btn-warning btn-sm" href="{{route('pegawai.edit', $pegawai->id)}}">Edit</a>
+                      </div>
+                      @endcan
                       @can('pegawai-delete')
                       <div class="mx-2">
                         {!! Form::open(['method' => 'DELETE','route' => ['pegawai.destroy', $pegawai->id],'style'=>'display:inline']) !!}

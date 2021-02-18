@@ -17,6 +17,7 @@ class PegawaiController extends Controller
     {
          $this->middleware('permission:pegawai-list|pegawai-create|pegawai-edit|pegawai-delete|pegawai-data', ['only' => ['show','store']]);
          $this->middleware('permission:pegawai-data', ['only' => ['show']]);
+         $this->middleware('permission:biodata-edit', ['only' => ['editbiodata','update']]);
          $this->middleware('permission:pegawai-create', ['only' => ['create','store']]);
          $this->middleware('permission:pegawai-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:pegawai-delete', ['only' => ['destroy']]);
@@ -44,12 +45,8 @@ class PegawaiController extends Controller
             'nama' => 'required',
             'email' => 'required|email|unique:pegawai,email',
             'alamat' => 'required',
-            'tanggal_masuk' => 'required',
             'rekening' => 'required',
-            'type_pegawai' => 'required',
             'bank_id' => 'required',
-            'jabatan_id' => 'required',
-            // 'bonus_loyalitas' => 'required',
         ]);
 
         $input = $request->all();
@@ -90,18 +87,18 @@ class PegawaiController extends Controller
         }
     }
     
+    public function editbiodata()
+    {
+        $id = Auth::user()->id;
+        $pegawai = Pegawai::find($id);
+        $jabatan = Jabatan::get();
+        return view('kepegawaian.pegawai.edit',compact('pegawai','jabatan'));
+    }
     public function edit($id)
     {
         $pegawai = Pegawai::find($id);
         $jabatan = Jabatan::get();
         return view('kepegawaian.pegawai.edit',compact('pegawai','jabatan'));
-        // if (Auth::user()->id == $pegawai->id) {
-        //     return view('kepegawaian.pegawai.edit',compact('pegawai','jabatan'));
-        // }
-        // else{
-        //     return redirect()->route('pegawai.index')
-        //         ->with('errors','Anda tidak dapat mengedit profile orang lain');
-        // } 
     }
     
     public function update(Request $request, $id)

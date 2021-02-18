@@ -76,9 +76,13 @@
         <a href=" <?= route('pegawai.index',$id) ?> " class="btn btn-primary btn-sm">Kembali</a>
       </div>
       @endcan
-      <div class="col  text-center">
-        <a href=" <?= route('pegawai.edit',$id) ?> " class="btn btn-warning btn-sm">Edit</a>
-      </div>
+      @if (Auth::user()->id == $pegawai->id)
+        @can('biodata-edit')
+        <div class="col  text-center">
+          <a href=" <?= route('pegawai.editbiodata') ?> " class="btn btn-warning btn-sm">Edit</a>
+        </div>
+        @endcan
+      @endif
       </div>
     </div>
   </div>

@@ -7,7 +7,16 @@
 @stop
 
 @section('content')
-
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
   <div class="box box-info">
     <!-- form start -->
     {!! Form::open(array('route' => 'izin.store','method' => 'POST')) !!}
@@ -29,10 +38,22 @@
         </div>
        
         <div class="form-group">
-          <label for="inputAlamat" class="col-sm-2 control-label">Type Izin </label>
+          <label for="inputType" class="col-sm-2 control-label">Type Izin </label>
 
           <div class="col-sm-10">
-          {!! Form::select('type_izin', ['cuti sakit'=>'cuti sakit','cuti hamil' => 'cuti hamil'], array('placeholder' => 'Type Izin ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
+            <select name="type_izin" id="inputType" class="form-control">
+              <option disabled selected hidden value="">Type Izin</option>
+              <option value="Sakit">Sakit</option>
+              <option value="Hal Penting">Hal Penting</option>
+              <option value="Cuti Hamil">Cuti Hamil</option>
+              <option value="Cuti Tahunan">Cuti Tahunan</option>
+              <option value="Cuti Hari Besar">Cuti Hari Besar</option>
+            </select>
+            <!-- {!! Form::select('type_izin', ['Sakit' => 'Sakit', 
+                                          'Hal Penting' => 'Hal Penting', 
+                                          'Cuti Tahunan' => 'Cuti Tahunan', 
+                                          'Cuti Besar' => 'Cuti Tahunan'],
+              null, array('placeholder' => ' ', 'class' => 'form-control', 'id' => 'InputType')); !!} -->
           </div>
         </div>
         
@@ -42,7 +63,6 @@
           {!! Form::textarea('keterangan', null, array('placeholder' => 'Keterangan ','class' => 'form-control', 'id' => 'InputName', 'rows' => '3')) !!}
           </div>
         </div>
-
 
         <div class="form-group d-none">
           <div class="col-sm-10">

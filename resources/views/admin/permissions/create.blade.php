@@ -7,28 +7,38 @@
 @stop
 
 @section('content')
-<div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title"></h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            {!! Form::open(array('route' => 'permissions.store','method' => 'POST')) !!}
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="inputName" class="col-sm-2 control-label">Permission Name</label>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title"></h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    {!! Form::open(array('route' => 'permissions.store','method' => 'POST')) !!}
+      <div class="box-body">
+        <div class="form-group">
+          <label for="inputName" class="col-sm-2 control-label">Permission Name</label>
 
-                  <div class="col-sm-10">
-                  {!! Form::text('name', null, array('placeholder' => 'Permission Name','class' => 'form-control', 'id' => 'InputName')) !!}
-                  </div>
-                </div>
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                <button type="reset" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right">Submit</button>
-              </div>
-              <!-- /.box-footer -->
-            {!! Form::close() !!}
+          <div class="col-sm-10">
+          {!! Form::text('name', null, array('placeholder' => 'Permission Name','class' => 'form-control', 'id' => 'InputName')) !!}
           </div>
+        </div>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer">
+        <button type="reset" class="btn btn-default">Cancel</button>
+        <button type="submit" class="btn btn-info pull-right">Submit</button>
+      </div>
+      <!-- /.box-footer -->
+    {!! Form::close() !!}
+  </div>
 @stop

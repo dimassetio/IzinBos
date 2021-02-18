@@ -25,6 +25,7 @@ class IzinController extends Controller
     public function index(Request $request)
     {
         $izin = Izin::orderBy('id','DESC')->paginate();
+        // dd($izin);
         Pegawai::pluck('nama','nama');
         return view('perizinan.index',compact('izin','nama'))
             ->with('i', ($request->input('page', 1) - 1) );
@@ -33,7 +34,7 @@ class IzinController extends Controller
     public function create()
     {
         
-        return view('perizinan.pengajuan',compact('pegawai'));
+        return view('perizinan.create');
     }
     
     public function store(Request $request)
@@ -45,7 +46,7 @@ class IzinController extends Controller
         ]);
         $id = Auth::user()->id;
         $input = $request->all();
-        $input['user_id'] = $id;
+        $input['pegawai_id'] = $id;
         $tes = Izin::create($input);
         // dd($tes);
 
@@ -57,9 +58,8 @@ class IzinController extends Controller
      
     public function show($id)
     {
-        $pegawai = Pegawai::find($id);
-    
-        return view('kepegawaian.pegawai.show',compact('pegawai'));
+        $izin = Izin::find($id);
+        return view('perizinan.show',compact('izin'));
     }
     
     public function edit($id)
@@ -70,28 +70,38 @@ class IzinController extends Controller
     }
     
     
-    public function update(Request $request, $id)
+      public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama' => 'required',
+            'status_diterima' => 'required',
         ]);
     
-        $pegawai = Pegawai::find($id);
+        $izin = Izin::find($id);
         $input = $request->all();
-        $bonus = Jabatan::find($request->jabatan_id);
-        $input['bonus_loyalitas'] = $bonus->bonus_professional; 
-        $pegawai->update($input);
+        $izin->update($input);
     
-        // $pegawai->syncPermissions($request->input('permission'));
+        // $izin->syncPermissions($request->input('permission'));
     
-        return redirect()->route('pegawai.index')
-                        ->with('success','Pegawai updated successfully');
+        return redirect()->route('izin.index')
+                        ->with('success','Izin updated successfully');
+    }
+
+      public function confirm($izin)
+    {
+        // dd($izin);
+        $izin = Izin::find($izin);
+        $status['status_diterima'] = 'diterima';
+        $izin->update($status);
+        // dd($izin);
+        // $izin->syncPermissions($request->input('permission'));
+    
+        return redirect()->route('izin.index');
     }
     
     public function destroy($id)
     {
-        DB::table("pegawai")->where('id',$id)->delete();
-        return redirect()->route('pegawai.index')
-                        ->with('success','Pegawai deleted successfully');
+        DB::table("izin")->where('id',$id)->delete();
+        return redirect()->route('izin.index')
+                        ->with('success','Izin deleted successfully');
     }
 }

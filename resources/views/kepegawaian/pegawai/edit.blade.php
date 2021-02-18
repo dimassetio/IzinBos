@@ -48,13 +48,7 @@
           {!! Form::text('rekening', null, array('placeholder' => 'Rekening ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
           </div>
         </div>
-        <div class="form-group">
-          <label for="inputAlamat" class="col-sm-2 control-label">Type Pegawai </label>
-
-          <div class="col-sm-10">
-          {!! Form::text('type_pegawai', null, array('placeholder' => 'Type Pegawai ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
-          </div>
-        </div>
+        
         <div class="form-group">
           <label for="inputAlamat" class="col-sm-2 control-label">Bank </label>
 
@@ -62,6 +56,17 @@
           {!! Form::number('bank_id', null, array('placeholder' => 'Bank ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
           </div>
         </div>
+
+        @can ('pegawai-edit') 
+
+        <div class="form-group">
+          <label for="inputAlamat" class="col-sm-2 control-label">Type Pegawai </label>
+
+          <div class="col-sm-10">
+          {!! Form::text('type_pegawai', null, array('placeholder' => 'Type Pegawai ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
+          </div>
+        </div>
+
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <label> Jabatan</label>
@@ -74,6 +79,7 @@
             @endforeach
           </div>
         </div>
+        @endcan
         
       </div>
       <!-- /.box-body -->

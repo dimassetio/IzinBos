@@ -42,18 +42,21 @@
           {!! Form::textarea('keterangan', null, array('placeholder' => 'Keterangan ','class' => 'form-control', 'id' => 'InputName', 'rows' => '3')) !!}
           </div>
         </div>
-
-
-        <div class="form-group d-none">
+    @if($izin->status_diterima == 'diterima')
+      @can('izin-confirmation')
+        <div class="form-group">
           <div class="col-sm-10">
-          {!! Form::text('status_diterima', 'menunggu', array('placeholder' => 'status diterima ','class' => 'form-control d-none', 'id' => 'InputAlamat', 'value' => 'menunggu')) !!}
+          {!! Form::checkbox('status_diterima', 'menunggu', array('class' => 'form-control d-none', 'id' => 'InputAlamat')) !!}
+          Batalkan Status Diterima
           </div>
         </div>
+      @endcan
+    @endif
         
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
-        <button type="submit" class="btn btn-default">Cancel</button>
+        <a href="{{route('izin.index')}}" class="btn btn-default">Cancel</a>
         <button type="submit" class="btn btn-info pull-right">Submit</button>
       </div>
       <!-- /.box-footer -->

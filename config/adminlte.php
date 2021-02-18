@@ -240,13 +240,13 @@ return [
             'text'       => 'Pengajuan Izin',
             'url'        => 'izin/create',
             // 'can'        => 'user-list',
-            'icon'       => 'fas fa-fw fa-paper',
+            'icon'       => 'fas fa-fw fa-envelope-open-text',
         ],
         [
             'text'       => 'Data Izin',
             'url'        => 'izin',
             // 'can'        => 'user-list',
-            'icon'       => 'fas fa-fw fa-paper',
+            'icon'       => 'far fa-fw fa-file-alt',
         ],
         [
             'text'       => 'Manage User',
@@ -277,6 +277,7 @@ return [
         [
             'text'       => 'Kepegawaian',
             'icon'       => 'fas fa-fw fa-briefcase',
+            'can'        => ['pegawai-data','pegawai-list','jabatan-list','tunjangan-list'],
             'submenu'    => [
                 [
                     'text'       => 'Biodata',

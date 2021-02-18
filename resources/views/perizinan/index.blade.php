@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Data Pegawai</h1>    
+    <h1>Data Izin Pegawai</h1>    
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
@@ -51,8 +51,8 @@
                   <td> <?= $no; ?></td>
                   <?php $no++; ?>
                   <td>
-                    @if($izin->user_id != null)
-                      <?= $izin->getNamaPegawai($izin->user_id); ?>
+                    @if($izin->pegawai_id != null)
+                      <?= $izin->getNamaPegawai($izin->pegawai_id); ?>
                     @else 
                       <a href="#" class="badge badge-danger">Tidak Ada</a>
                     @endif
@@ -63,11 +63,11 @@
                   <td><?= $izin->keterangan; ?> </td>
                   <td>
                     @if($izin->status_diterima == 'menunggu')
-                      <a class="badge badge-warning">                    
+                      <a class="badge badge-warning p-2">                    
                     @elseif($izin->status_diterima == 'diterima')
-                      <a class="badge badge-success">
+                      <a class="badge badge-success p-2">
                     @elseif($izin->status_diterima == 'ditolak')
-                      <a class="badge badge-danger">
+                      <a class="badge badge-danger p-2">
                     @endif
                       <?= $izin->status_diterima; ?> 
                     </a>
@@ -75,9 +75,9 @@
                   @if(auth()->user()->hasAnyPermission(['izin-edit','izin-delete']))
                   <td>
                     <div class="row justify-content-center">
-                      <div class="mx-2">
-                        <a class="btn btn-info btn-sm" href="{{route('izin.show', $izin->id)}}">show</a>
-                      </div>
+                    <div class="mx-2">
+                      <a href=" <?= route('izin.show',$izin->id) ?> " class="btn btn-info btn-sm">Show</a>
+                    </div>
                     @can('izin-edit')
                       <div class="mx-2">
                         <a class="btn btn-primary btn-sm" href="{{route('izin.edit', $izin->id)}}">edit</a>
@@ -90,6 +90,15 @@
                         {!! Form::close() !!}
                       </div>
                       @endcan
+                      @if($izin->status_diterima == 'menunggu')
+                      @can('izin-confirmation')
+                      <div class="mx-2">
+                        {!! Form::open(['method' => 'patch','route' => ['izin.confirm', $izin->id],'style'=>'display:inline']) !!}
+                          {!! Form::submit('Terima', ['class' => 'btn btn-success btn-sm']) !!}
+                        {!! Form::close() !!}<!-- <a class="btn btn-success btn-sm" href="{{route('izin.confirm', $izin)}}">terima</a> -->
+                      </div>
+                      @endcan
+                      @endif
                     </div>
                   </td>
                   @endif

@@ -14,12 +14,12 @@ class Izin extends Model
         'keterangan', 
         'type_izin', 
         'status_diterima', 
-        'user_id', 
+        'pegawai_id', 
     ];
 
     public function getNamaPegawai($id)
     {
-        $pegawai = Pegawai::find()->where('user_id', $id);
+        $pegawai = Pegawai::find($id);
         return $pegawai->nama;
     }
 }

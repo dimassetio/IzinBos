@@ -7,7 +7,16 @@
 @stop
 
 @section('content')
-
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
   <div class="box box-info">
     <!-- form start -->
     {!! Form::open(array('route' => 'pegawai.store','method' => 'POST')) !!}
@@ -48,18 +57,20 @@
           {!! Form::text('rekening', null, array('placeholder' => 'Rekening ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
           </div>
         </div>
-        <div class="form-group">
-          <label for="inputAlamat" class="col-sm-2 control-label">Type Pegawai </label>
-
-          <div class="col-sm-10">
-          {!! Form::text('type_pegawai', null, array('placeholder' => 'Type Pegawai ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
-          </div>
-        </div>
+        
         <div class="form-group">
           <label for="inputAlamat" class="col-sm-2 control-label">Bank </label>
 
           <div class="col-sm-10">
           {!! Form::number('bank_id', null, array('placeholder' => 'Bank ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
+          </div>
+        </div>
+        @can('pegawai-edit')
+        <div class="form-group">
+          <label for="inputAlamat" class="col-sm-2 control-label">Type Pegawai </label>
+
+          <div class="col-sm-10">
+          {!! Form::text('type_pegawai', null, array('placeholder' => 'Type Pegawai ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
           </div>
         </div>
         <div class="form-group">
@@ -74,7 +85,7 @@
             @endforeach
           </div>
         </div>
-        
+        @endcan
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
