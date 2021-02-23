@@ -15,30 +15,32 @@ class IzinController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:izin-list|izin-create|izin-edit|izin-delete|izin-confirmation', ['only' => ['index','store']]);
+         $this->middleware('permission:izin-list|izin-create|izin-edit|izin-delete|izin-confirmation', ['only' => ['data','store']]);
          $this->middleware('permission:izin-create', ['only' => ['create','store']]);
          $this->middleware('permission:izin-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:izin-delete', ['only' => ['destroy']]);
-         $this->middleware('permission:izin-confirmation', ['only' => ['confirm','reject']]);
+         $this->middleware('permission:izin-confirmation', ['only' => ['confirm','index']]);
     }
 
     public function index(Request $request)
     {
-        $izin = Izin::get();
-        // dd($izin);
-        Pegawai::pluck('nama','nama');
-        return view('perizinan.index',compact('izin','nama'));
+        $izin = Izin::select(['izin.id','tanggal_mulai','tanggal_selesai','type_izin','status_diterima','nama'])
+                    ->join('pegawai','izin.pegawai_id', '=', 'pegawai.id')->get();
+        return view('perizinan.index',compact('izin'));
     }
     
     public function data(Request $request)
     {
-        $izin = Izin::get();
-        Pegawai::pluck('nama','nama');
-        return view('perizinan.index',compact('izin','nama'));
+        $id = Auth::user()->id;
+        $izin = Izin::select(['izin.id','tanggal_mulai','tanggal_selesai','type_izin','status_diterima','nama'])
+                    ->where('izin.pegawai_id',$id)
+                    ->join('pegawai','izin.pegawai_id', '=', 'pegawai.id')->get();
+        return view('perizinan.index',compact('izin'));
     }
      
     public function create()
     {
+        // dd(Auth::user()->can('izin-create'));
         $id = Auth::user()->id;
         $izin = Izin::select()->where('pegawai_id',$id)
                             ->where('type_izin', '!=','terlambat')
@@ -46,17 +48,17 @@ class IzinController extends Controller
         // dd($izin);
         $max_izin = 5;
         if($izin->count()>= $max_izin){
-            return redirect()->route('izin.index')
+            return redirect()->route('izin.data')
                     ->with('warning', 'Jumlah izin anda sudah mencapai maksimal');
         }
         foreach($izin as $izin){
             $check = strtotime($izin->tanggal_selesai)>=strtotime('today');
             if ($izin->status_diterima == 'menunggu') {
-                return redirect()->route('izin.index')
+                return redirect()->route('izin.data')
                     ->with('warning', 'Anda masih memiliki izin yang belum dikonfirmasi');
             }
             elseif ($check == true) {
-                return redirect()->route('izin.index')
+                return redirect()->route('izin.data')
                     ->with('warning', 'Anda masih memiliki izin yang berjalan');
             }
         }
@@ -76,7 +78,7 @@ class IzinController extends Controller
         $tes = Izin::create($input);
         // dd($tes);
 
-        return redirect()->route('izin.index')
+        return redirect()->route('izin.data')
                         ->with('success','Izin created successfully');
     }
 
@@ -107,7 +109,7 @@ class IzinController extends Controller
         $izin->update($input);
 
     
-        return redirect()->route('izin.index')
+        return redirect()->route('izin.data')
                         ->with('success','Izin updated successfully');
     }
 

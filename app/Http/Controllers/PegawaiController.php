@@ -15,18 +15,19 @@ class PegawaiController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:pegawai-list|pegawai-create|pegawai-edit|pegawai-delete|pegawai-data', ['only' => ['show','store']]);
-         $this->middleware('permission:pegawai-list', ['only' => ['index']]);
-         $this->middleware('permission:pegawai-data', ['only' => ['show']]);
-         $this->middleware('permission:biodata-edit', ['only' => ['editbiodata','update']]);
+         $this->middleware('permission:pegawai-list|pegawai-create|pegawai-edit|pegawai-delete|pegawai-data|biodata-edit', ['only' => ['show', 'data','store']]);
+         $this->middleware('permission:pegawai-list',   ['only' => ['index']]);
+         $this->middleware('permission:pegawai-data',   ['only' => ['show','data']]);
          $this->middleware('permission:pegawai-create', ['only' => ['create','store']]);
-         $this->middleware('permission:pegawai-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:pegawai-edit',   ['only' => ['edit']]);
+         $this->middleware('permission:pegawai-edit|biodata-edit',   ['only' => ['update']]);
+         $this->middleware('permission:biodata-edit',   ['only' => ['editbiodata']]);
          $this->middleware('permission:pegawai-delete', ['only' => ['destroy']]);
     }
      
     public function index(Request $request)
     {
-        $pegawai = Pegawai::orderBy('id','DESC')->paginate(10);
+        $pegawai = Pegawai::orderBy('id','DESC')->paginate();
         $count = DB::table('pegawai')->where('id',Auth::user()->id)->count();
         $data = "true";
         
@@ -95,6 +96,7 @@ class PegawaiController extends Controller
         $id = Auth::user()->id;
         $pegawai = Pegawai::find($id);
         $jabatan = Jabatan::get();
+        // dd(Auth::user()->can('biodata-edit'));
         return view('kepegawaian.pegawai.edit',compact('pegawai','jabatan'));
     }
     public function edit($id)
@@ -106,22 +108,26 @@ class PegawaiController extends Controller
     
     public function update(Request $request, $id)
     {
+      
         $this->validate($request, [
             'nama' => 'required',
         ]);
     
         $pegawai = Pegawai::find($id);
         $input = $request->all();
-        $bonus = Jabatan::find($input['jabatan_id']);
-        $input['bonus_loyalitas'] = $bonus->bonus_professional; 
+        if (!empty($input['jabatan_id'])) {
+            $bonus = Jabatan::find($input['jabatan_id']);
+            $input['bonus_loyalitas'] = $bonus->bonus_professional; 
+        }
         $pegawai->update($input);
-    
+       
         if ($pegawai->id == Auth::user()->id) {
             return redirect()->route('pegawai.data')
                             ->with('success','Pegawai updated successfully');
+        }else{    
+            return redirect()->route('pegawai.index')
+            ->with('success','Pegawai updated successfully');
         }
-        return redirect()->route('pegawai.index')
-                        ->with('success','Pegawai updated successfully');
     }
     
     public function destroy($id)

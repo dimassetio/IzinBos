@@ -32,8 +32,8 @@
                   <td> <?= $no; ?></td>
                   <?php $no++; ?>
                   <td>
-                    @if($izin->pegawai_id != null)
-                      <?= $izin->getNamaPegawai($izin->pegawai_id); ?>
+                    @if($izin->nama != null)
+                      <?= $izin->nama; ?>
                     @else 
                       <a href="#" class="badge badge-danger">Tidak Ada</a>
                     @endif
@@ -57,7 +57,7 @@
                   <td>
                     <div class="row justify-content-center">
                     <div class="m-2">
-                      <a href=" <?= route('izin.show',$izin->id) ?> " class="btn btn-info btn-sm">Show</a>
+                      <a href=" {!! route('izin.show', $izin->id) !!} " class="btn btn-info btn-sm">Show</a>
                     </div>
                     @can('izin-edit')
                       <div class="m-2">

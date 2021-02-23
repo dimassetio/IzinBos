@@ -239,13 +239,19 @@ return [
         [
             'text'       => 'Pengajuan Izin',
             'url'        => 'izin/create',
-            // 'can'        => 'user-list',
+            'can'        => 'izin-list',
             'icon'       => 'fas fa-fw fa-envelope-open-text',
         ],
         [
             'text'       => 'Data Izin',
             'url'        => 'izin',
-            // 'can'        => 'user-list',
+            'can'        => 'izin-confirmation',
+            'icon'       => 'far fa-fw fa-file-alt',
+        ],
+        [
+            'text'       => 'Data Izin Anda',
+            'url'        => 'izin/data',
+            'can'        => 'izin-list',
             'icon'       => 'far fa-fw fa-file-alt',
         ],
         [
