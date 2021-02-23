@@ -26,7 +26,7 @@
               @foreach($data as $tunjangan)
                 <tr>
                   <td><?= $tunjangan->nama_tunjangan; ?> </td>
-                  <td><?= $tunjangan->besar_tunjangan; ?> </td>
+                  <td class="text-right">Rp. <?= number_format($tunjangan->besar_tunjangan,0,",","."); ?> </td>
                   @if(auth()->user()->hasAnyPermission(['tunjangan-edit','tunjangan-delete']))
                   <td>
                     <div class="row justify-content-center">

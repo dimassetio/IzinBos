@@ -23,9 +23,8 @@ class JabatanController extends Controller
     
     public function index(Request $request)
     {
-        $data = Jabatan::orderBy('id', 'DESC')->paginate(5);
-        return view('kepegawaian.jabatan.index', compact('data'))
-                ->with('i', ($request->input('page',1) - 1) * 5);
+        $data = Jabatan::get();
+        return view('kepegawaian.jabatan.index', compact('data'));
     }
 
     public function create()
@@ -39,7 +38,20 @@ class JabatanController extends Controller
             'nama_jabatan' => 'required',
             'gaji_pokok' => 'required'
         ]);
+        $gaji = $request->get('gaji_pokok');
+        $gaji = str_replace("Rp. ","",$gaji);
+        $gaji = str_replace(".","",$gaji);
+        $gaji = (int)$gaji;
+        
+        $bonus = $request->get('bonus_professional');
+        $bonus = str_replace("Rp. ","",$bonus);
+        $bonus = str_replace(".","",$bonus);
+        $bonus = (int)$bonus;
+
         $input = $request->all();
+        $input['gaji_pokok'] = $gaji;
+        $input['bonus_professional'] = $bonus;
+        
         $jabatan = Jabatan::create($input);
 
         return redirect()->route('jabatan.index')
@@ -61,15 +73,21 @@ class JabatanController extends Controller
             'bonus_professional' => 'required'
         ]); 
         $jabatan = Jabatan::find($id);
-        $jabatan->nama_jabatan = $request->input('nama_jabatan');
-        $jabatan->gaji_pokok = $request->input('gaji_pokok');
-        $jabatan->bonus_professional = $request->input('bonus_professional');
+        $gaji = $request->get('gaji_pokok');
+        $gaji = str_replace("Rp. ","",$gaji);
+        $gaji = str_replace(".","",$gaji);
+        $gaji = (int)$gaji;
         
-        $pegawai = Pegawai::get()->where('jabatan_id',$id);
-        $pegawai->bonus_loyalitas = $request->input('bonus_professional');
-        // dd($pegawai->bonus_loyalitas);
+        $bonus = $request->get('bonus_professional');
+        $bonus = str_replace("Rp. ","",$bonus);
+        $bonus = str_replace(".","",$bonus);
+        $bonus = (int)$bonus;
 
-        $jabatan->save();
+        $input = $request->all();
+        $input['gaji_pokok'] = $gaji;
+        $input['bonus_professional'] = $bonus;
+        
+        $jabatan->update($input);
         // $pegawai->save();
         return redirect()->route('jabatan.index')
                         ->with('success','Role updated successfully');

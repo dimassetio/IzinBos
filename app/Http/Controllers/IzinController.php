@@ -100,17 +100,22 @@ class IzinController extends Controller
     
       public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'type_izin' => 'required',
-        ]);
     
         $izin = Izin::find($id);
         $input = $request->all();
+        // dd($input['status_diterima']);
+        if (!isset($input['status_diterima'])) {
+            $input['status_diterima'] = 'menunggu';
+        }
         $izin->update($input);
 
-    
-        return redirect()->route('izin.data')
-                        ->with('success','Izin updated successfully');
+        if (Auth::user()->can('izin-confirmation')) {   
+            return redirect()->route('izin.index')
+            ->with('success','Izin updated successfully');
+        } else{
+            return redirect()->route('izin.data')
+            ->with('success','Izin updated successfully');
+        }
     }
 
       public function confirm(Request $request, $izin)

@@ -1,5 +1,5 @@
-@extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
-
+@extends('adminlte::auth.auth-page', ['auth_type' => 'register'])
+<!-- @extends('adminlte::master') -->
 @section('adminlte_css_pre')
     <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 @stop
@@ -20,7 +20,7 @@
 
 @section('auth_header', __('adminlte::adminlte.login_message'))
 
-@section('auth_body')
+@section('auth_body')                                   
     <form action="{{ $login_url }}" method="post">
         {{ csrf_field() }}
 
@@ -76,21 +76,5 @@
 @stop
 
 @section('auth_footer')
-    {{-- Password reset link --}}
-    @if($password_reset_url)
-        <p class="my-0">
-            <a href="{{ $password_reset_url }}">
-                {{ __('adminlte::adminlte.i_forgot_my_password') }}
-            </a>
-        </p>
-    @endif
 
-    {{-- Register link --}}
-    @if($register_url)
-        <p class="my-0">
-            <a href="{{ $register_url }}">
-                {{ __('adminlte::adminlte.register_a_new_membership') }}
-            </a>
-        </p>
-    @endif
 @stop

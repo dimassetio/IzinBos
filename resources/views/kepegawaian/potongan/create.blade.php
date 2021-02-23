@@ -21,6 +21,23 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="inputJenis" class="col-sm-2 control-label">Jenis Potongan</label>
+
+          <div class="col-sm-10">
+            <input type="radio" id="presentase" name="jenis_potongan" value="presentase">
+            <label for="presentase">Presentase</label><br>
+            <input type="radio" id="nominal" name="jenis_potongan" value="nominal">
+            <label for="nominal">Nominal</label><br>
+          </div>
+          <script>
+            if(document.getElementById('presentase').checked) {
+
+            }else if(document.getElementById('nominal').checked) {
+              
+            }
+          </script>
+        </div>        
+        <div class="form-group">
           <label for="inputPotongan" class="col-sm-2 control-label">Besar Potongan</label>
 
           <div class="col-sm-10">
@@ -37,4 +54,13 @@
     {!! Form::close() !!}
   </div>
 
+@stop
+@section('js')
+  <script>
+    $('#inputPotongan').priceFormat({
+      prefix: 'Rp. ',
+      centsLimit: 0,
+      thousandsSeparator: '.'
+    });
+  </script>
 @stop

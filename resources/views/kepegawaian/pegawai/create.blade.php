@@ -36,7 +36,22 @@
 
           <div class="col-sm">
           <label for="inputbank" class="col-sm-2 control-label">Bank ID</label>
-          {!! Form::number('bank_id', null, array('placeholder' => 'Bank ID ','class' => 'form-control', 'id' => 'Inputbank')) !!}
+            <select name="bank_id" class="form-control">
+              <option disabled selected hidden value="">Bank ID</option>
+                <option value="BRI">BRI</option>
+                <option value="BCA">BCA</option>
+                <option value="BNI">BNI</option>
+                <option value="BNI Syariah">BNI Syariah</option>
+                <option value="BTPN">BTPN</option>
+                <option value="BTPN Wow">BTPN Wow</option>
+                <option value="CIMB Niaga">CIMB Niaga</option>
+                <option value="CIMB Niaga Syariah">CIMB Niaga Syariah</option>
+                <option value="Mandiri">Mandiri</option>
+                <option value="Mandiri Syariah">Mandiri Syariah</option>
+                <option value="Muamalat">Muamalat</option>
+                <option value="OCBC NISP">OCBC NISP</option>
+            </select>
+            <!-- {!! Form::number('bank_id', null, array('placeholder' => 'Bank ID ','class' => 'form-control', 'id' => 'Inputbank')) !!} -->
           </div>
         </div>
         <div class="form-group">

@@ -27,8 +27,8 @@
               @foreach($data as $jabatan)
                 <tr>
                   <td><?= $jabatan->nama_jabatan; ?> </td>
-                  <td><?= $jabatan->gaji_pokok; ?> </td>
-                  <td><?= $jabatan->bonus_professional; ?> </td>
+                  <td id="besarGaji" class="text-right">Rp. <?= number_format($jabatan->gaji_pokok,0,",","."); ?> </td>
+                  <td id="besarBonus" class="text-right">Rp. <?= number_format($jabatan->bonus_professional,0,",","."); ?> </td>
                   @if(auth()->user()->hasAnyPermission(['jabatan-edit','jabatan-delete']))
                   <td>
                     <div class="row justify-content-center">
@@ -73,5 +73,10 @@
     $ ( function () {
       $('#tableJabatan').DataTable();
     })
+    $('.price').priceFormat({
+      prefix: 'Rp. ',
+      centsLimit: 0,
+      thousandsSeparator: '.'
+    });
   </script>
 @stop

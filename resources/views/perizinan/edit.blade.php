@@ -32,7 +32,13 @@
           <label for="inputAlamat" class="col-sm-2 control-label">Type Izin </label>
 
           <div class="col-sm-10">
-          {!! Form::select('type_izin', ['cuti sakit'=>'cuti sakit','cuti hamil' => 'cuti hamil'], array('placeholder' => 'Type Izin ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
+          {!! Form::select('type_izin', ['Sakit'=>'Sakit','Hal Penting' => 'Hal Penting', 'Terlambat' => 'Terlambat', $izin], array('placeholder' => 'Type Izin ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
+          <!-- <select name="type_izin" id="inputType" class="form-control"> -->
+              <!-- <option disabled selected hidden value="">Type Izin</option> -->
+              <!-- <option value="Sakit">Sakit</option>
+              <option value="Hal Penting">Hal Penting</option>
+              <option value="Terlambat">Terlambat</option> -->
+            </select>
           </div>
         </div>
         

@@ -59,7 +59,7 @@
               <tr>
                 <td>Bonus Professional </td>
                 <td> : </td>
-                <td><?= $pegawai->bonus_loyalitas; ?></td>
+                <td>Rp. <?= number_format($pegawai->bonus_loyalitas,0,",","."); ?></td>
               </tr>
           </tbody>
         </table>
@@ -81,7 +81,4 @@
     </div>
   </div>
 </div>
-
-
-
 @stop

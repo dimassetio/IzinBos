@@ -24,14 +24,14 @@
           <label for="inputGaji" class="col-sm-2 control-label">Gaji Pokok</label>
 
           <div class="col-sm-10">
-          {!! Form::text('gaji_pokok', null, array('placeholder' => 'Gaji Pokok','class' => 'form-control', 'id' => 'inputGaji')) !!}
+          {!! Form::text('gaji_pokok', null, array('placeholder' => 'Gaji Pokok','class' => 'form-control inputGaji', 'id' => 'inputGaji')) !!}
           </div>
         </div>
         <div class="form-group">
-          <label for="inputBonus" class="col-sm-2 control-label">Bonus Professional</label>
+          <label for="inputGaji" class="col-sm-2 control-label">Bonus Professional</label>
 
           <div class="col-sm-10">
-          {!! Form::text('bonus_professional', null, array('placeholder' => 'Bonus Professional','class' => 'form-control', 'id' => 'inputBonus')) !!}
+          {!! Form::text('bonus_professional', null, array('placeholder' => 'Bonus Professional','class' => 'form-control inputGaji', 'id' => 'inputGaji')) !!}
           </div>
         </div>
         
@@ -45,4 +45,13 @@
     {!! Form::close() !!}
   </div>
 
+@stop
+@section('js')
+  <script>
+    $('.inputGaji').priceFormat({
+      prefix: 'Rp. ',
+      centsLimit: 0,
+      thousandsSeparator: '.'
+    });
+  </script>
 @stop

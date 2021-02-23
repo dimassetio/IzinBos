@@ -38,3 +38,12 @@
   </div>
 
 @stop
+@section('js')
+  <script>
+    $('#inputTunjangan').priceFormat({
+      prefix: 'Rp. ',
+      centsLimit: 0,
+      thousandsSeparator: '.'
+    });
+  </script>
+@stop

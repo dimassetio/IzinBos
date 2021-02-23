@@ -53,8 +53,22 @@
           <label for="inputAlamat" class="col-sm-2 control-label">Bank </label>
 
           <div class="col-sm-10">
-          {!! Form::number('bank_id', null, array('placeholder' => 'Bank ','class' => 'form-control', 'id' => 'InputAlamat')) !!}
-          </div>
+            <select name="bank_id" class="form-control">
+                <option disabled selected hidden value="">Bank ID</option>
+                <option value="BRI">BRI</option>
+                <option value="BCA">BCA</option>
+                <option value="BNI">BNI</option>
+                <option value="BNI Syariah">BNI Syariah</option>
+                <option value="BTPN">BTPN</option>
+                <option value="BTPN Wow">BTPN Wow</option>
+                <option value="CIMB Niaga">CIMB Niaga</option>
+                <option value="CIMB Niaga Syariah">CIMB Niaga Syariah</option>
+                <option value="Mandiri">Mandiri</option>
+                <option value="Mandiri Syariah">Mandiri Syariah</option>
+                <option value="Muamalat">Muamalat</option>
+                <option value="OCBC NISP">OCBC NISP</option>
+              </select>
+            </div>
         </div>
 
         @can ('pegawai-edit') 

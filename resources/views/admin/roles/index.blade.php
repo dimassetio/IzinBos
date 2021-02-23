@@ -17,15 +17,13 @@
                 <!-- <table class="table table-hover text-nowrap"> -->
                 <thead>
                     <tr>
-                    <th>No</th>
                     <th>Name</th>
                     <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($roles as $key => $role)
+                    @foreach ($roles as $role)
                         <tr>
-                        <td>{{ ++$i }}</td>
                         <td>{{ $role->name }}</td>
                         <td>
                         <div class="row justify-content-center">
@@ -50,7 +48,6 @@
                     @endforeach
                 </tbody>
                 </table>
-                {!! $roles->render() !!}
             </div>
             <!-- /.card-body -->
             </div>

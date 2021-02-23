@@ -27,12 +27,11 @@ class PegawaiController extends Controller
      
     public function index(Request $request)
     {
-        $pegawai = Pegawai::orderBy('id','DESC')->paginate();
+        $pegawai = Pegawai::get();
         $count = DB::table('pegawai')->where('id',Auth::user()->id)->count();
         $data = "true";
         
-        return view('kepegawaian.pegawai.index',compact('pegawai','count','data'))
-            ->with('i', ($request->input('page', 1) - 1) * 10);
+        return view('kepegawaian.pegawai.index',compact('pegawai','count','data'));
     }
      
     public function create()

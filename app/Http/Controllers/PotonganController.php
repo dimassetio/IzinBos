@@ -21,7 +21,7 @@ class PotonganController extends Controller
 
     public function index(Request $request)
     {
-        $data = Potongan::orderBy('id', 'DESC')->paginate(5);
+        $data = Potongan::get();
         return view('kepegawaian.potongan.index', compact('data'))
                 ->with('i', ($request->input('page',1) - 1) * 5);
     }
@@ -37,7 +37,14 @@ class PotonganController extends Controller
             'nama_potongan'=>'required',
             'besar_potongan'=>'required'
         ]);
+        $potongan = $request->get('besar_potongan');
+        $potongan = str_replace("Rp. ","",$potongan);
+        $potongan = str_replace(".","",$potongan);
+        $potongan = (int)$potongan;
+
         $input = $request->all();
+        $input['besar_potongan'] = $potongan;
+        
         Potongan::create($input);
 
         return redirect()->route('potongan.index')
@@ -56,7 +63,14 @@ class PotonganController extends Controller
             'nama_potongan' => 'required',
             'besar_potongan' => 'required'
         ]);
+        $potongan = $request->get('besar_potongan');
+        $potongan = str_replace("Rp. ","",$potongan);
+        $potongan = str_replace(".","",$potongan);
+        $potongan = (int)$potongan;
+
         $input = $request->all();
+        $input['besar_potongan'] = $potongan;
+        
         $potongan = Potongan::find($id);
         $potongan->update($input);
 

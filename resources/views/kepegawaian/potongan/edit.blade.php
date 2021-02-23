@@ -38,3 +38,12 @@
   </div>
 
 @stop
+@section('js')
+  <script>
+    $('#inputPotongan').priceFormat({
+      prefix: 'Rp. ',
+      centsLimit: 0,
+      thousandsSeparator: '.'
+    });
+  </script>
+@stop

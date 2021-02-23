@@ -21,9 +21,8 @@ class TunjanganController extends Controller
 
     public function index(Request $request)
     {
-        $data = Tunjangan::orderBy('id', 'DESC')->paginate(5);
-        return view('kepegawaian.tunjangan.index', compact('data'))
-                ->with('i', ($request->input('page',1) - 1) * 5);
+        $data = Tunjangan::get();
+        return view('kepegawaian.tunjangan.index', compact('data'));
     }
 
     public function create()
@@ -37,7 +36,14 @@ class TunjanganController extends Controller
             'nama_tunjangan' => 'required',
             'besar_tunjangan' => 'required'
         ]);
+        $tunjangan = $request->get('besar_tunjangan');
+        $tunjangan = str_replace("Rp. ","",$tunjangan);
+        $tunjangan = str_replace(".","",$tunjangan);
+        $tunjangan = (int)$tunjangan;
+    
         $input = $request->all();
+        $input['besar_tunjangan'] = $tunjangan;
+        // dd($input);
         Tunjangan::create($input);
 
         return redirect()->route('tunjangan.index')
@@ -57,9 +63,16 @@ class TunjanganController extends Controller
             'nama_tunjangan' => 'required',
             'besar_tunjangan' => 'required'
         ]);
+        $tunjangan = $request->get('besar_tunjangan');
+        $tunjangan = str_replace("Rp. ","",$tunjangan);
+        $tunjangan = str_replace(".","",$tunjangan);
+        $tunjangan = (int)$tunjangan;
+
         $input = $request->all();
-        $tunjangan = Tunjangan::find($id);
-        $tunjangan->update($input);
+        $input['besar_tunjangan'] = $tunjangan;
+
+        $Tunjangan = Tunjangan::find($id);
+        $Tunjangan->update($input);
 
         return redirect()->route('tunjangan.index')
                         ->with('success','Tunjangan Updated Successfully');

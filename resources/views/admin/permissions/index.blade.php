@@ -17,7 +17,6 @@
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
-                  <th>Guard Name</th>
                   @if(auth()->user()->hasAnyPermission(['permission-edit','permission-delete']))
                       <th>Action</th> 
                   @endif
@@ -28,7 +27,6 @@
                   <tr>
                     <td><?= $data->id; ?> </td>
                     <td><?= $data->name; ?> </td>
-                    <td><?= $data->guard_name; ?> </td>
                     @if(auth()->user()->hasAnyPermission(['permission-edit','permission-delete']))
                     <td>
                       <div class="row justify-content-center">

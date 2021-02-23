@@ -16,15 +16,15 @@
         <div class="form-group">
           <label for="inputName" class="col-sm-2 control-label">Nama Tunjangan</label>
 
-          <div class="col-sm-10">
+          <div class="col-sm-5">
           {!! Form::text('nama_tunjangan', null, array('placeholder' => 'Nama Tunjangan','class' => 'form-control', 'id' => 'InputName')) !!}
           </div>
         </div>
         <div class="form-group">
           <label for="inputTunjangan" class="col-sm-2 control-label">Besar Tunjangan</label>
 
-          <div class="col-sm-10">
-          {!! Form::text('besar_tunjangan', null, array('placeholder' => 'Besar Tunjangan','class' => 'form-control', 'id' => 'inputTunjangan')) !!}
+          <div class="col-sm-3">
+          {!! Form::text('besar_tunjangan', null, array('placeholder' => 'Rp. ','class' => 'form-control text-right', 'id' => 'inputTunjangan')) !!}
           </div>
         </div>        
       </div>
@@ -37,4 +37,14 @@
     {!! Form::close() !!}
   </div>
 
+@stop
+
+@section('js')
+  <script>
+    $('#inputTunjangan').priceFormat({
+      prefix: 'Rp. ',
+      centsLimit: 0,
+      thousandsSeparator: '.'
+    });
+  </script>
 @stop
