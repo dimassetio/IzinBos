@@ -4,8 +4,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-
-class JabatanSeeder extends Seeder
+class PermissionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,42 +13,42 @@ class JabatanSeeder extends Seeder
      */
     public function run()
     {
-        $permission([
-            'role-list',
-            'role-create',
-            'role-edit',
-            'role-delete',
-            'permission-list',
-            'permission-create',
-            'permission-edit',
-            'permission-delete',
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete',
-            'pegawai-list',
-            'pegawai-data',
-            'pegawai-create',
-            'pegawai-edit',
-            'pegawai-delete',
-            'jabatan-list',
-            'jabatan-create',
-            'jabatan-edit',
-            'jabatan-delete',
-            'tunjangan-list',
-            'tunjangan-create',
-            'tunjangan-edit',
-            'tunjangan-delete',
-            'potongan-list',
-            'potongan-create',
-            'potongan-edit',
-            'potongan-delete',
-            'izin-list',
-            'izin-create',
-            'izin-edit',
-            'izin-delete',
-            'izin-confirmation',
-            'biodata-edit',
+        $permissions = [
+         /* 01 */   'role-list',
+         /* 02 */   'role-create',
+         /* 03 */   'role-edit',
+         /* 04 */   'role-delete',
+         /* 05 */   'permission-list',
+         /* 06 */   'permission-create',
+         /* 07 */   'permission-edit',
+         /* 08 */   'permission-delete',
+         /* 09 */   'user-list',
+         /* 10 */   'user-create',
+         /* 11 */   'user-edit',
+         /* 12 */   'user-delete',
+         /* 13 */   'pegawai-list',
+         /* 14 */   'pegawai-data',
+         /* 15 */   'pegawai-create',
+         /* 16 */   'pegawai-edit',
+         /* 17 */   'pegawai-delete',
+         /* 18 */   'biodata-edit',
+         /* 19 */   'jabatan-list',
+         /* 20 */   'jabatan-create',
+         /* 21 */   'jabatan-edit',
+         /* 22 */   'jabatan-delete',
+         /* 23 */   'tunjangan-list',
+         /* 24 */   'tunjangan-create',
+         /* 25 */   'tunjangan-edit',
+         /* 26 */   'tunjangan-delete',
+         /* 27 */   'potongan-list',
+         /* 28 */   'potongan-create',
+         /* 29 */   'potongan-edit',
+         /* 30 */   'potongan-delete',
+         /* 31 */   'izin-list', 
+         /* 32 */   'izin-create',
+         /* 33 */   'izin-edit',
+         /* 34 */   'izin-delete',
+         /* 35 */   'izin-confirmation',
         ];
 
         foreach ($permissions as $permission) {
@@ -57,3 +56,4 @@ class JabatanSeeder extends Seeder
         }
     }
 }
+

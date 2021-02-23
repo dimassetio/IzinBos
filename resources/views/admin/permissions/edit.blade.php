@@ -16,18 +16,6 @@
     </div>
 </div>
 
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 {!! Form::model($permission, ['method' => 'PATCH','route' => ['permissions.update',$permission->id]]) !!}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -44,7 +32,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="reset" class="btn btn-primary">Cancel</button>
+    <a href="{{route('permissions.index')}}" class="btn btn-default">Cancel</a>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </div>

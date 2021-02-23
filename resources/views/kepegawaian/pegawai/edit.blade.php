@@ -84,7 +84,7 @@
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
-        <button type="reset" class="btn btn-default">Cancel</button>
+        <a href="{{route('pegawai.data')}}" class="btn btn-default">Cancel</a>
         <button type="submit" class="btn btn-info pull-right">Submit</button>
       </div>
       <!-- /.box-footer -->

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PegawaiController;
 use App\Models\Jabatan;
+use App\Models\Pegawai;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
@@ -63,8 +65,12 @@ class JabatanController extends Controller
         $jabatan->gaji_pokok = $request->input('gaji_pokok');
         $jabatan->bonus_professional = $request->input('bonus_professional');
         
-        $jabatan->save();
+        $pegawai = Pegawai::get()->where('jabatan_id',$id);
+        $pegawai->bonus_loyalitas = $request->input('bonus_professional');
+        // dd($pegawai->bonus_loyalitas);
 
+        $jabatan->save();
+        // $pegawai->save();
         return redirect()->route('jabatan.index')
                         ->with('success','Role updated successfully');
     }

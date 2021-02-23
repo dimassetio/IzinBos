@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Pegawai;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
@@ -65,6 +66,12 @@ class UserController extends Controller
      
          $user = User::create($input);
          $user->assignRole($request->input('roles'));
+         
+         $pegawai['id'] = $user->id; 
+         $pegawai['nama'] = $user->name; 
+         $pegawai['email'] = $user->email; 
+         $pegawai = Pegawai::create($pegawai);
+        //  dd($pegawai);
      
          return redirect()->route('users.index')
                          ->with('success','User created successfully');

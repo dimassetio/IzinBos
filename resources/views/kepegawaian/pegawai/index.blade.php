@@ -4,18 +4,6 @@
 
 @section('content_header')
     <h1>Data Pegawai</h1>    
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    @if ($message = Session::get('errors'))
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <p>{{ $message }}</p>
-        </div>
-    @endif
 
 @stop
 
@@ -23,33 +11,19 @@
     <div class="row">
         <div class="col">
             <div class="card">
-            <div class="card-header">
-                <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-            <table id="example1" class="table table-bordered table-hover text-center">
+            <div class="card-body">
+            <table id="tablepegawai" class="table table-bordered table-hover text-center">
             <thead>
               <tr>
                 <th>Nama Pegawai</th>
                 <th>Email</th>
-                <th>Alamat</th>
-                <th>Tanggal Masuk</th>
-                <th>Rekening</th>
+                <!-- <th>Alamat</th> -->
+                <!-- <th>Tanggal Masuk</th> -->
+                <!-- <th>Rekening</th> -->
                 <th>Type Pegawai</th>
-                <th>Bank ID</th>
+                <!-- <th>Bank ID</th> -->
                 <th>Jabatan </th>
-                <th>Bonus Loyalitas</th>
+                <!-- <th>Bonus Loyalitas</th> -->
                 <th>Action</th>
               </tr>
             </thead>
@@ -58,11 +32,11 @@
                 <tr>
                   <td><?= $pegawai->nama; ?> </td>
                   <td><?= $pegawai->email; ?> </td>
-                  <td><?= $pegawai->alamat; ?> </td>
-                  <td><?= $pegawai->tanggal_masuk; ?> </td>
-                  <td><?= $pegawai->rekening; ?> </td>
+                  <!-- <td><?= $pegawai->alamat; ?> </td> -->
+                  <!-- <td><?= $pegawai->tanggal_masuk; ?> </td> -->
+                  <!-- <td><?= $pegawai->rekening; ?> </td> -->
                   <td><?= $pegawai->type_pegawai; ?> </td>
-                  <td><?= $pegawai->bank_id; ?> </td>
+                  <!-- <td><?= $pegawai->bank_id; ?> </td> -->
                   <td>
                     @if($pegawai->jabatan_id != null)
                       <?= $pegawai->getJabatanName($pegawai->jabatan_id); ?>
@@ -70,7 +44,7 @@
                       <a href="#" class="badge badge-danger">Tidak Ada</a>
                     @endif
                   </td>
-                  <td><?= $pegawai->bonus_loyalitas; ?></td>
+                  <!-- <td><?= $pegawai->bonus_loyalitas; ?></td> -->
                   
                   @if(auth()->user()->hasAnyPermission(['pegawai-edit','pegawai-delete']))
                   <td>
@@ -110,4 +84,9 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
+    <script> 
+    $ ( function () {
+        $('#tablepegawai').DataTable();
+    })
+</script>
 @stop

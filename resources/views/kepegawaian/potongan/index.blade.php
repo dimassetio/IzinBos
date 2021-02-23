@@ -4,11 +4,6 @@
 
 @section('content_header')
     <h1>Data Potongan</h1>
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
 
 @stop
 
@@ -16,23 +11,8 @@
     <div class="row">
         <div class="col">
             <div class="card ">
-            <div class="card-header">
-
-                <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-            <table id="example1" class="table table-bordered table-hover text-center">
+            <div class="card-body table-responsive">
+            <table id="tablePotongan" class="table table-bordered table-hover text-center">
             <thead>
               <tr>
                 <th>Nama Potongan</th>
@@ -87,5 +67,9 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script> 
+  $ ( function () {
+    $('#tablePotongan').DataTable();
+  })
+</script>
 @stop

@@ -16,7 +16,7 @@
           <label for="inputAlamat" class="col-sm-2 control-label">Tanggal Mulai </label>
 
           <div class="col-sm-10">
-          {!! Form::date('tanggal_mulai', \Carbon\Carbon::now(), array( 'class' => 'form-control', 'id' => 'InputAlamat')) !!}
+          {!! Form::date('tanggal_mulai', null, array( 'class' => 'form-control', 'id' => 'InputAlamat')) !!}
           </div>
         </div>
         
@@ -24,7 +24,7 @@
           <label for="inputAlamat" class="col-sm-2 control-label">Tanggal Selesai </label>
 
           <div class="col-sm-10">
-          {!! Form::date('tanggal_selesai', \Carbon\Carbon::now(), array( 'class' => 'form-control', 'id' => 'InputAlamat')) !!}
+          {!! Form::date('tanggal_selesai', null, array( 'class' => 'form-control', 'id' => 'InputAlamat')) !!}
           </div>
         </div>
        
@@ -48,6 +48,15 @@
           <div class="col-sm-10">
           {!! Form::checkbox('status_diterima', 'menunggu', array('class' => 'form-control d-none', 'id' => 'InputAlamat')) !!}
           Batalkan Status Diterima
+          </div>
+        </div>
+      @endcan
+    @elseif($izin->status_diterima == 'ditolak')
+      @can('izin-confirmation')
+        <div class="form-group">
+          <div class="col-sm-10">
+          {!! Form::checkbox('status_diterima', 'menunggu', array('class' => 'form-control d-none', 'id' => 'InputAlamat')) !!}
+          Batalkan Status Ditolak
           </div>
         </div>
       @endcan

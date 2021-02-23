@@ -16,6 +16,7 @@ class PegawaiController extends Controller
     function __construct()
     {
          $this->middleware('permission:pegawai-list|pegawai-create|pegawai-edit|pegawai-delete|pegawai-data', ['only' => ['show','store']]);
+         $this->middleware('permission:pegawai-list', ['only' => ['index']]);
          $this->middleware('permission:pegawai-data', ['only' => ['show']]);
          $this->middleware('permission:biodata-edit', ['only' => ['editbiodata','update']]);
          $this->middleware('permission:pegawai-create', ['only' => ['create','store']]);
@@ -36,6 +37,7 @@ class PegawaiController extends Controller
     public function create()
     {
         $jabatan = Jabatan::get();
+        // dd($jabatan);
         return view('kepegawaian.pegawai.create',compact('jabatan'));
     }
     
@@ -50,6 +52,7 @@ class PegawaiController extends Controller
         ]);
 
         $input = $request->all();
+        // dd($input['jabatan_id']);
         $bonus = Jabatan::find($request->jabatan_id);
         $input['bonus_loyalitas'] = $bonus->bonus_professional; 
         $input['id'] = Auth::user()->id; 
@@ -68,8 +71,8 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::find($id);
         $count = DB::table('pegawai')->where('id',$id)->count();
         
-        if ($count == 0) {
-            return redirect()->route('pegawai.create');
+        if ($count == 0 | empty($pegawai->alamat) | empty($pegawai->rekening) | empty($pegawai->bank_id)) {
+            return redirect()->route('pegawai.editbiodata')->with('info','Lengkapi Biodata Anda!');
         }else {
             return view('kepegawaian.pegawai.show',compact('pegawai','count','id'));
         }
@@ -109,12 +112,14 @@ class PegawaiController extends Controller
     
         $pegawai = Pegawai::find($id);
         $input = $request->all();
-        $bonus = Jabatan::find($request->jabatan_id);
+        $bonus = Jabatan::find($input['jabatan_id']);
         $input['bonus_loyalitas'] = $bonus->bonus_professional; 
         $pegawai->update($input);
     
-        // $pegawai->syncPermissions($request->input('permission'));
-    
+        if ($pegawai->id == Auth::user()->id) {
+            return redirect()->route('pegawai.data')
+                            ->with('success','Pegawai updated successfully');
+        }
         return redirect()->route('pegawai.index')
                         ->with('success','Pegawai updated successfully');
     }

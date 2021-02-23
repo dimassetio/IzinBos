@@ -35,7 +35,6 @@ class PermissionController extends Controller
         // return view('admin.permissions.index',compact('permissions'));
         // $permissions = Permission::orderBy('id','DESC')->paginate();
         return view('admin.permissions.index',compact('permissions'));
-            // ->with('i', ($request->input('page', 1) - 1) * 10);
     }
     
     /**

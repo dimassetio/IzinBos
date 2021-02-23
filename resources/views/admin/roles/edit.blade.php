@@ -19,16 +19,6 @@
 </div>
 
 
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
-    </div>
-@endif
 
 
 {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
@@ -51,7 +41,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="reset" class="btn btn-primary">Cancel</button>
+        <a href="{{route('roles.index')}}" class="btn btn-default">Cancel</a>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </div>

@@ -103,6 +103,39 @@
 
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
+    <script type="text/javascript">
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        })
+    @if ($errors->any())
+            Toast.fire({
+                icon: 'error',
+                html: '<ul> @foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach </ul>',
+            })
+    @endif
+    @if ($message = Session::get('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{$message}}',
+            })
+    @endif
+    @if ($message = Session::get('warning'))
+            Toast.fire({
+                icon: 'warning',
+                title: '{{$message}}',
+            })
+    @endif
+    @if ($message = Session::get('info'))
+            Toast.fire({
+                icon: 'info',
+                title: '{{$message}}',
+            })
+    @endif
+    </script>
 
 </body>
 

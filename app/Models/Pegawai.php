@@ -28,6 +28,9 @@ class Pegawai extends Model
 
     public function getJabatanName($id)
     {
+        if ($id == null) {
+            return " ";
+        }
         $jabatan = Jabatan::find($id);
         return $jabatan->nama_jabatan;
     }
