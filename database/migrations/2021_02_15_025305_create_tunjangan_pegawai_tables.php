@@ -16,6 +16,7 @@ class CreateTunjanganPegawaiTables extends Migration
         Schema::create('tunjangan_pegawai', function (Blueprint $table) {
             $table->unsignedBigInteger('pegawai_id');
             $table->unsignedBigInteger('tunjangan_id');
+            $table->timestamps();
 
             $table->foreign('pegawai_id')
                     ->references('id')

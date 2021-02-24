@@ -57,11 +57,12 @@
         <a href=" <?= route('izin.index',$izin->id) ?> " class="btn btn-primary btn-sm">Kembali</a>
       </div>
       @endcan
+      @if ($izin->status_diterima != 'ditolak')
       @can('izin-edit')
         <div class="col  text-center">
           <a href=" <?= route('izin.edit', $izin->id) ?> " class="btn btn-warning btn-sm">Edit</a>
         </div>
-      @endcan
+      @endcan @endif
       </div>
     </div>
   </div>

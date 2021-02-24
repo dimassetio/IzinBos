@@ -94,7 +94,11 @@ class IzinController extends Controller
     {
         $izin = Izin::find($id);
         $pegawai = Pegawai::get();
-        return view('perizinan.edit',compact('pegawai','izin'));
+        if ($izin->status_diterima == 'ditolak') {
+            if (Auth::user()->can('izin-list')) {
+                return redirect()->route('izin.index')->with('info','Izin yang ditolak tidak dapat diedit');
+            }else return redirect()->route('izin.data')->with('info','Izin yang ditolak tidak dapat diedit');
+        } else return view('perizinan.edit',compact('pegawai','izin'));
     }
     
     

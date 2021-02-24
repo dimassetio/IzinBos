@@ -59,11 +59,13 @@
                     <div class="m-2">
                       <a href=" {!! route('izin.show', $izin->id) !!} " class="btn btn-info btn-sm">Show</a>
                     </div>
-                    @can('izin-edit')
+                    @if ($izin->status_diterima != 'ditolak')
+                      @can('izin-edit')
                       <div class="m-2">
                         <a class="btn btn-primary btn-sm" href="{{route('izin.edit', $izin->id)}}">edit</a>
                       </div>
                       @endcan
+                    @endif
                       @can('izin-delete')
                       <div class="m-2">
                         {!! Form::open(['method' => 'DELETE','route' => ['izin.destroy', $izin->id],'style'=>'display:inline']) !!}

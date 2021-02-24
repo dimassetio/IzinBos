@@ -53,26 +53,24 @@
           <label for="inputAlamat" class="col-sm-2 control-label">Bank </label>
 
           <div class="col-sm-10">
-            <select name="bank_id" class="form-control">
-                <option disabled selected hidden value="">Bank ID</option>
-                <option value="BRI">BRI</option>
-                <option value="BCA">BCA</option>
-                <option value="BNI">BNI</option>
-                <option value="BNI Syariah">BNI Syariah</option>
-                <option value="BTPN">BTPN</option>
-                <option value="BTPN Wow">BTPN Wow</option>
-                <option value="CIMB Niaga">CIMB Niaga</option>
-                <option value="CIMB Niaga Syariah">CIMB Niaga Syariah</option>
-                <option value="Mandiri">Mandiri</option>
-                <option value="Mandiri Syariah">Mandiri Syariah</option>
-                <option value="Muamalat">Muamalat</option>
-                <option value="OCBC NISP">OCBC NISP</option>
-              </select>
+          {!! Form::select('bank_id', [
+            'BRI' => 'BRI', 
+            'BCA' => 'BCA', 
+            'BNI' => 'BNI', 
+            'BNI Syariah' => 'BNI Syariah', 
+            'BTPN' => 'BTPN', 
+            'BTPN Wow' => 'BTPN Wow',
+            'CIMB Niaga' => 'CIMB Niaga',
+            'CIMB Niaga Syariah' => 'CIMB Niaga Syariah',
+            'Mandiri' => 'Mandiri',
+            'Mandiri Syariah' => 'Mandiri Syariah',
+            'Muamalat' => 'Muamalat',
+            'OCBC NISP' => 'OCBC NISP',
+            ], $pegawai->bank_id, array('placeholder'=>'Bank ID' , 'class' => 'form-control')); !!}
             </div>
         </div>
 
         @can ('pegawai-edit') 
-
         <div class="form-group">
           <label for="inputAlamat" class="col-sm-2 control-label">Type Pegawai </label>
 
@@ -83,13 +81,38 @@
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <label> Jabatan</label>
-            @foreach ($jabatan as $data)
-            <div class="checkbox">
-                <label class="col-sm-2 control-label">
-                  {!! Form::radio('jabatan_id', $data->id, array('class' => 'form-control name')); !!}
-                  {!! $data->nama_jabatan !!}
-                </label>
+              <label class="col-sm-2 control-label">Jabatan</label>
+              <select name="jabatan_id" class="form-control">
+              @if($pegawai->jabatan_id == null)
+                  <option selected disabled hidden>Tidak Ada</option>
+              @endif
+                @foreach ($jabatan as $data)
+                 @if($pegawai->jabatan_id == $data->id)
+                  <option selected value="{!! $data->id !!}">{!! $data->nama_jabatan !!}</option>
+                @else 
+                  <option value="{!! $data->id !!}">{!! $data->nama_jabatan !!}</option>
+                @endif
+                @endforeach
+              </select>
+          </div>
+        </div>
+        @endcan
+
+        @can ('give-tunjangan')
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Daftar Tunjangan </label>
+
+          <div class="col-sm">
+            <!-- <select name="tunjangan_id[]" class="form-control" multiple>
+              @foreach($tunjangan as $t)
+                <option value="{!! $t->id !!}">{!! $t->nama_tunjangan !!}</option>
+              @endforeach
+            </select> -->
+
+            @foreach($tunjangan as $value)
+                {{ Form::checkbox('tunjangan_id[]', $value->id, in_array($value->id, $tunjangan_pegawai) ? true : false, array('class' => 'name')) }}
+                {{ $value->nama_tunjangan }}
+                <br>
             @endforeach
           </div>
         </div>

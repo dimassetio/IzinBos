@@ -8,10 +8,7 @@
 
 @section('content')
 
-<div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Registration Form</h3>
-            </div>
+<div class="box box-info">  
             <!-- /.box-header -->
             <!-- form start -->
             {!! Form::open(array('route' => 'users.store','method' => 'POST')) !!}
@@ -51,8 +48,8 @@
                     @foreach ($roles as $data)
                     <div class="checkbox">
                         <label class="col-sm-2 control-label">
-                          {!! Form::checkbox('roles[]', $data, array('class' => 'form-control name')); !!}
-                          {!! $data !!}
+                          {!! Form::checkbox('roles[]', $data->id, false,array('class' => ' name')); !!}
+                          {!! $data->name !!}
                         </label>
                     @endforeach
                   </div>

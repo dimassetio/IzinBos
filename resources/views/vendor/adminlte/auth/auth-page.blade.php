@@ -13,23 +13,15 @@
     @yield('css')
 @stop
 
-@section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
+@section('classes_body_login'){{ ($auth_type ?? 'login') . '-page' }}@stop
 
-@section('body')
-    <div class="{{ $auth_type ?? 'login' }}-box">
 
-        {{-- Logo --}}
-        <div class="{{ $auth_type ?? 'login' }}-logo">
-            <a href="{{ $dashboard_url }}">
-                <img src="{{ asset(config('adminlte.logo_img')) }}" height="50">
-                {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
-            </a>
-        </div>
+    <div class="container m-auto p-5">
 
         {{-- Card Box --}}
-        <div class="card {{ config('adminlte.classes_auth_card', 'card-outline card-primary') }}">
+        <div class="card shadow-lg">
 
-            {{-- Card Header --}}
+             {{-- Card Header --}}
             @hasSection('auth_header')
                 <div class="card-header {{ config('adminlte.classes_auth_header', '') }}">
                     <h3 class="card-title float-none text-center">
@@ -43,17 +35,15 @@
                 @yield('auth_body')
             </div>
 
-            {{-- Card Footer --}}
+            <!-- {{-- Card Footer --}}
             @hasSection('auth_footer')
                 <div class="card-footer {{ config('adminlte.classes_auth_footer', '') }}">
                     @yield('auth_footer')
                 </div>
-            @endif
-
-        </div>
-
+            @endif -->
+        <!-- </div> -->
     </div>
-@stop
+
 
 @section('adminlte_js')
     @stack('js')

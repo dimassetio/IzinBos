@@ -49,6 +49,7 @@ class PermissionTableSeeder extends Seeder
          /* 33 */   'izin-edit',
          /* 34 */   'izin-delete',
          /* 35 */   'izin-confirmation',
+         /* 36 */   'give-tunjangan',
         ];
 
         foreach ($permissions as $permission) {

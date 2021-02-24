@@ -41,7 +41,8 @@ class UserController extends Controller
       */
      public function create()
      {
-         $roles = Role::pluck('name','name')->all();
+         
+         $roles = Role::get();
          return view('admin.users.create',compact('roles'));
      }
      
@@ -64,6 +65,7 @@ class UserController extends Controller
          $input['password'] = Hash::make($input['password']);
      
          $user = User::create($input);
+        //  dd($request->input('roles'));
          $user->assignRole($request->input('roles'));
          
          $pegawai['id'] = $user->id; 
