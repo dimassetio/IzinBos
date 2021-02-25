@@ -109,8 +109,8 @@ class PegawaiController extends Controller
         $jabatan = Jabatan::get();
         $tunjangan = Tunjangan::get();
         // $tunjangan_pegawai = Tunjangan_Pegawai::where('pegawai_id',$id)->get()->toArray();
-        $tunjangan_pegawai = DB::table("tunjangan_pegawai")->where("tunjangan_pegawai.pegawai_id",$id)
-            ->pluck('tunjangan_pegawai.tunjangan_id','tunjangan_pegawai.tunjangan_id')
+        $tunjangan_pegawai = DB::table("tunjangan_pegawai")->where("pegawai_id",$id)
+            ->pluck('tunjangan_id','tunjangan_id')
             ->all();
         // dd($tunjangan_pegawai);
         return view('kepegawaian.pegawai.edit',compact('pegawai','jabatan','tunjangan','tunjangan_pegawai'));
@@ -132,12 +132,9 @@ class PegawaiController extends Controller
         }
         $pegawai->update($input);
         
-        // dd($input['tunjangan_id']);
         if (isset($input['tunjangan_id'])) {
             DB::table('tunjangan_pegawai')->where('pegawai_id',$id)->delete();
-            // dd($input['tunjangan_id']);
             foreach ($input['tunjangan_id'] as $tunjangan) {
-                
                 $tp = Tunjangan_Pegawai::Create([
                     'pegawai_id' => $id,
                     'tunjangan_id' => $tunjangan 

@@ -318,6 +318,12 @@ return [
                 ],
             ]
         ],
+        [
+            'text'       => 'Generate Gaji',
+            'url'        => 'gaji/create',
+            'can'        => 'gaji-create',
+            'icon'       => 'fas fa-fw fa-money-bill',
+        ],
 
     ],
 

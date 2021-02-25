@@ -15,16 +15,17 @@ class CreateGajiTable extends Migration
     {
         Schema::create('gaji', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('id_pegawai');
-            $table->integer('gaji_pokok');
-            $table->integer('total_tunjangan');
+            $table->integer('pegawai_id');
+            $table->integer('gaji_pokok')->default('0');
+            $table->integer('total_tunjangan')->default('0');
+            $table->integer('bonus_loyalitas')->default('0');
             $table->date('tanggal');
             $table->timestamps();
 
-            $table->foreign('id_pegawai')
-                ->references('id')
-                ->on('pegawai')
-                ->onDelete('cascade');
+            // $table->foreign('pegawai_id')
+            //     ->references('id')
+            //     ->on('pegawai')
+            //     ->onDelete('cascade');
         });
     }
 

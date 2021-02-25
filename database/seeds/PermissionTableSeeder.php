@@ -50,6 +50,10 @@ class PermissionTableSeeder extends Seeder
          /* 34 */   'izin-delete',
          /* 35 */   'izin-confirmation',
          /* 36 */   'give-tunjangan',
+         /* 37 */   'gaji-list',
+         /* 38 */   'gaji-create',
+         /* 39 */   'gaji-edit',
+         /* 40 */   'gaji-delete',
         ];
 
         foreach ($permissions as $permission) {

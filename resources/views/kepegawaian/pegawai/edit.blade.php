@@ -121,7 +121,11 @@
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
+        @can('pegawai-list')
+        <a href="{{route('pegawai.index')}}" class="btn btn-default">Cancel</a>
+        @else
         <a href="{{route('pegawai.data')}}" class="btn btn-default">Cancel</a>
+        @endcan
         <button type="submit" class="btn btn-info pull-right">Submit</button>
       </div>
       <!-- /.box-footer -->

@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::patch('/izin/confirm/{id}', 'IzinController@confirm')->name('izin.confirm');
     Route::get('/izin/data', 'IzinController@data')->name('izin.data');
     Route::resource('izin', IzinController::class);
+    Route::resource('gaji', GajiController::class);
 });
 
 
