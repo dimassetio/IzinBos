@@ -37,7 +37,7 @@
                   @can('gaji-list')
                   <td>
                       <div class="mx-2">
-                        <a class="btn btn-info btn-sm" href="{{route('gaji.index', $gaji->id)}}">Show</a>
+                        <a class="btn btn-info btn-sm" href="{{route('gaji.show', $gaji->id)}}">Show</a>
                       </div>
                   </td>
                   @endcan
@@ -65,7 +65,8 @@
 @section('js')
   <script> 
     $ ( function () {
-        $('#tableGaji').DataTable();
+        $('#tableGaji').DataTable({
+        });
     })
   </script>
 @stop

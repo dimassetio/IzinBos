@@ -99,9 +99,18 @@
     </div>
     <div class="col-xs">
     @can('izin-create')        
+    <div class="m-1">
         <a href="<?= route('izin.create') ?>" class="btn btn-app float-right">
             <i class="fas fa-edit"></i> Tambah
         </a>
+    </div>
+    @endcan
+    @can('izin-confirmation')
+    <div class="m-1">
+        <a href="<?= route('izin.laporan') ?>" class="btn btn-app float-right">
+            <i class="fas fa-save"></i> Laporan
+        </a>
+    </div>
     @endcan
     </div>
   </div>

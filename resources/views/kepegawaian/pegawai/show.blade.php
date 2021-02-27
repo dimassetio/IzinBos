@@ -57,7 +57,7 @@
                 <td><?= $pegawai->getJabatanName($pegawai->jabatan_id); ?></td>
               </tr>
               <tr>
-                <td>Bonus Professional </td>
+                <td>Bonus Loyalitas </td>
                 <td> : </td>
                 <td>Rp. <?= number_format($pegawai->bonus_loyalitas,0,",","."); ?></td>
               </tr>

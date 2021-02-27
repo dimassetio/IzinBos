@@ -35,8 +35,8 @@
             <select name="type_izin" id="inputType" class="form-control">
               <option disabled selected hidden value="">Type Izin</option>
               <option value="Sakit">Sakit</option>
-              <option value="Hal Penting">Hal Penting</option>
-              <option value="Cuti Hamil">Terlambat</option>
+              <option value="Izin">Izin</option>
+              <option value="Terlambat">Terlambat</option>
             </select>
             <!-- {!! Form::select('type_izin', ['Sakit' => 'Sakit', 
                                           'Hal Penting' => 'Hal Penting', 

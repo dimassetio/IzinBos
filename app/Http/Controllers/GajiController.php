@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\Gaji;
+use App\Models\Detail_Gaji;
 use App\Models\Jabatan;
 use App\Models\Pegawai;
 use App\Models\Tunjangan;
@@ -28,91 +29,125 @@ class GajiController extends Controller
     public function index(Request $request)
     {
         $pegawai_id = Auth::user()->id;
-        $data = Gaji::select('nama', 'gaji_pokok', 'total_tunjangan', 'tanggal', 
-                DB::raw('gaji_pokok + total_tunjangan + bonus_loyaliyas as total_gaji'))
-                -> join('pegawai','pegawai.id','=','gaji.pegawai_id')->get();
-                dd($data);
-                $data->total_gaji = $data->gaji_pokok + $data->total_tunjangan;
-        return view('gaji.index', compact('data'));
+        $data = Gaji::select('gaji.id','nama','gaji_pokok', 'gaji.tanggal', 'gaji.bonus_loyalitas', 'total_tunjangan',
+                DB::raw('gaji_pokok + total_tunjangan + gaji.bonus_loyalitas as total_gaji'))
+                -> join('pegawai', 'gaji.pegawai_id', '=', 'pegawai.id')
+                -> where('pegawai.id','=',$pegawai_id)
+                -> orderBy('tanggal','desc')
+                // -> whereMonth('tanggal','=',Carbon::now()->month)
+                -> first();
+
+        if (isset($data->id)) {   
+            $tunjangan = Tunjangan::select('nama_tunjangan', 'nominal_tunjangan')
+            -> join('detail_gaji','tunjangan.id','=','tunjangan_id')
+            -> where('gaji_id','=',$data->id)
+            -> get();
+        }
+        
+        // dd($data,$tunjangan);
+        if (empty($data)) {
+            return view('gaji.index');
+        } else return view('gaji.index', compact('data','tunjangan'));
     }
     
     public function create()
     {
-        $data = Gaji::select('nama','gaji_pokok', 'tanggal', 'gaji.bonus_loyalitas', 'total_tunjangan',
+        $data = Gaji::select('gaji.id','nama','gaji_pokok', 'tanggal', 'gaji.bonus_loyalitas', 'total_tunjangan',
                 DB::raw('gaji_pokok + total_tunjangan + gaji.bonus_loyalitas as total_gaji'))
                 -> join('pegawai', 'gaji.pegawai_id', '=', 'pegawai.id')
+                -> orderBy('tanggal','DESC')
                 -> get();
         
         return view('gaji.create', compact('data'));
     }
 
     public function store(Request $request)
+    // public function store()
     {
-        $this->validate($request,[
-            'tanggal' => 'required'
-        ]);
+        // $this->validate($request,[
+        //     'tanggal' => 'required'
+        // ]);
         $gaji = Gaji::get();
         $tggl = date("m", strtotime($request->input('tanggal')));
-        // $check = DB::table('gaji')->whereMonth('tanggal', '=', Carbon::now()->month)->delete();
         $check = DB::table('gaji')->whereMonth('tanggal', '=', $tggl)->delete();
+        // $check = DB::table('gaji')->whereMonth('tanggal', '=', Carbon::now()->month)->delete();
 
-        $pegawai = Tunjangan::select('pegawai.id as pegawai_id','gaji_pokok','bonus_loyalitas', 
+        $tunjangan = Tunjangan::select('pegawai.id as pegawai_id','gaji_pokok','bonus_professional', 'tanggal_masuk',
                         DB::raw('SUM(besar_tunjangan) as total_tunjangan'))
                         -> join('tunjangan_pegawai', 'tunjangan.id','=','tunjangan_pegawai.tunjangan_id')
                         -> rightJoin('pegawai', 'tunjangan_pegawai.pegawai_id','=','pegawai.id')
                         -> join('jabatan','pegawai.jabatan_id','=','jabatan.id')
-                        -> groupBy('pegawai.id','gaji_pokok','bonus_loyalitas')
+                        -> groupBy('pegawai.id','gaji_pokok','bonus_professional','tanggal_masuk')
                         -> get()->toArray();
+        
+        
 
-        foreach ($pegawai as $input) {
+        foreach ($tunjangan as $input) {
             $input['tanggal'] = $request->input('tanggal');
+            // dd($input);
             // $input['tanggal'] = Carbon::today();
             if($input['total_tunjangan'] == null){
                 $input['total_tunjangan'] = 0;
             };
-            if($input['bonus_loyalitas'] == null){
-                $input['bonus_loyalitas'] = 0;
-            };
+            $diff = abs(strtotime(Carbon::today()) - strtotime($input['tanggal_masuk']));
+            $lama_kerja = floor($diff / (365*60*60*24));
+            $input['bonus_loyalitas'] = $lama_kerja * $input['bonus_professional'];
+            // dd($input['bonus_loyalitas']);
             $generate = Gaji::create($input);
+            $pegawai = Pegawai::where('id','=',$input['pegawai_id'])->first();
+            $pegawai->bonus_loyalitas = $input['bonus_loyalitas'];
+            $pegawai->save();
+            // dd($generate);
+            $tunjangan = Tunjangan::select('tunjangan_id','besar_tunjangan','pegawai_id')
+                            -> join('tunjangan_pegawai','tunjangan.id','=','tunjangan_id')
+                            -> where('pegawai_id','=',$generate->pegawai_id)
+                            ->get();
+            foreach ($tunjangan as $detail) {
+                dd($detail,$generate, $detail->besar_tunjangan);
+                Detail_Gaji::create([
+                    'gaji_id' => $generate->id,
+                    'pegawai_id' => $detail->pegawai_id,
+                    'tanggal' => $generate->tanggal,
+                    'tunjangan_id' => $detail->tunjangan_id,
+                    'nominal_tunjangan' => $detail->besar_tunjangan
+                ]);
+            }
+
         }
             // dd($generate);
         return redirect()->route('gaji.create')
                         ->with('success','Gaji Generated Succesfully');
     }
-
+    
+    public function show($id){
+        $data = Gaji::select('gaji.id','nama','gaji_pokok', 'gaji.tanggal', 'gaji.bonus_loyalitas', 'total_tunjangan',
+                DB::raw('gaji_pokok + total_tunjangan + gaji.bonus_loyalitas as total_gaji'))
+                -> join('pegawai', 'gaji.pegawai_id', '=', 'pegawai.id')
+                -> where('gaji.id','=',$id)
+                -> first();
+        // dd($data);
+        if (isset($data->id)) {   
+            $tunjangan = Tunjangan::select('nama_tunjangan', 'nominal_tunjangan')
+            -> join('detail_gaji','tunjangan.id','=','tunjangan_id')
+            -> where('gaji_id','=',$data->id)
+            -> get();
+        }
+        
+        if (empty($data)) {return view('gaji.index') ;
+        } else return view('gaji.index', compact('data','tunjangan'));
+    }
     public function edit($id)
     {
-        $gaji = Gaji::find($id);
-
-        return view('gaji.edit', compact('gaji'));
+        
     }
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'nama_tunjangan' => 'required',
-            'besar_tunjangan' => 'required'
-        ]);
-        $gaji = $request->get('besar_tunjangan');
-        $gaji = str_replace("Rp. ","",$gaji);
-        $gaji = str_replace(".","",$gaji);
-        $gaji = (int)$gaji;
 
-        $input = $request->all();
-        $input['besar_tunjangan'] = $gaji;
-
-        $Gaji = Gaji::find($id);
-        $Gaji->update($input);
-
-        return redirect()->route('gaji.index')
-                        ->with('success','Gaji Updated Successfully');
     }
 
     public function destroy($id)
     {
-        DB::table('gaji')->where('id',$id)->delete();
 
-        return redirect()->route('gaji.index')
-                        ->with('success', 'Gaji Deleted Successfully');
     }
 }

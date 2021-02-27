@@ -126,10 +126,6 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::find($id);
         $input = $request->all();
         
-        if (!empty($input['jabatan_id'])) {
-            $bonus = Jabatan::find($input['jabatan_id']);
-            $input['bonus_loyalitas'] = $bonus->bonus_professional; 
-        }
         $pegawai->update($input);
         
         if (isset($input['tunjangan_id'])) {
@@ -140,6 +136,8 @@ class PegawaiController extends Controller
                     'tunjangan_id' => $tunjangan 
                 ]);
             }
+        } else {
+            DB::table('tunjangan_pegawai')->where('pegawai_id',$id)->delete();
         }
        
         if ($pegawai->id == Auth::user()->id) {

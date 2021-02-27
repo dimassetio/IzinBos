@@ -38,7 +38,7 @@
           <label for="inputAlamat" class="col-sm-2 control-label">Tanggal Masuk </label>
 
           <div class="col-sm-10">
-          {!! Form::date('tanggal_masuk', \Carbon\Carbon::now(), array( 'class' => 'form-control', 'id' => 'InputAlamat')) !!}
+          {!! Form::date('tanggal_masuk', $pegawai->tanggal_masuk, array( 'class' => 'form-control', 'id' => 'InputAlamat')) !!}
           </div>
         </div>
         <div class="form-group">
@@ -98,8 +98,11 @@
         </div>
         @endcan
 
-        @can ('give-tunjangan')
+        @can('pegawai-edit')
         <div class="form-group">
+        @else
+        <div class="form-group d-none">
+        @endcan
           <label class="col-sm-2 control-label">Daftar Tunjangan </label>
 
           <div class="col-sm">
@@ -116,7 +119,6 @@
             @endforeach
           </div>
         </div>
-        @endcan
         
       </div>
       <!-- /.box-body -->

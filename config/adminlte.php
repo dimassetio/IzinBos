@@ -237,24 +237,7 @@ return [
         ],
         
         // ['header' => 'USERS DATA'],
-        [
-            'text'       => 'Pengajuan Izin',
-            'url'        => 'izin/create',
-            'can'        => 'izin-list',
-            'icon'       => 'fas fa-fw fa-envelope-open-text',
-        ],
-        [
-            'text'       => 'Data Izin',
-            'url'        => 'izin',
-            'can'        => 'izin-confirmation',
-            'icon'       => 'far fa-fw fa-file-alt',
-        ],
-        [
-            'text'       => 'Data Izin Anda',
-            'url'        => 'izin/data',
-            'can'        => 'izin-list',
-            'icon'       => 'far fa-fw fa-file-alt',
-        ],
+        
         [
             'text'       => 'Manage User',
             'icon'       => 'fas fa-fw fa-user',
@@ -282,10 +265,36 @@ return [
         ],
 
         [
+            'text'       => 'Perizinan',
+            'icon'       => 'fas fa-fw fa-envelope',
+            'can'        => ['izin-list','izin-confirmation'],
+            'submenu'    => [
+                [
+                    'text'       => 'Pengajuan Izin',
+                    'url'        => 'izin/create',
+                    'can'        => 'izin-list',
+                    'icon'       => 'fas fa-fw fa-envelope-open-text',
+                ],
+                [
+                    'text'       => 'Data Izin',
+                    'url'        => 'izin',
+                    'can'        => 'izin-confirmation',
+                    'icon'       => 'far fa-fw fa-file-alt',
+                ],
+                [
+                    'text'       => 'Data Izin Anda',
+                    'url'        => 'izin/data',
+                    'can'        => 'izin-list',
+                    'icon'       => 'far fa-fw fa-file-alt',
+                ],
+            ]
+        ],
+        [
             'text'       => 'Kepegawaian',
             'icon'       => 'fas fa-fw fa-briefcase',
             'can'        => ['pegawai-data','pegawai-list','jabatan-list','tunjangan-list'],
             'submenu'    => [
+                
                 [
                     'text'       => 'Biodata',
                     'url'        => 'pegawai/data',
@@ -304,12 +313,34 @@ return [
                     'can'        => 'jabatan-list',
                     'icon'       => 'fas fa-fw fa-address-card',
                 ],
+            ]
+        ],
+        [
+            'text'       => 'Keuangan',
+            'icon'       => 'fas fa-fw fa-money-bill',
+            'can'        => ['gaji-list','potongan-list','tunjangan-list'],
+            'submenu'    => [
+                [
+                    'text'       => 'Gaji Anda',
+                    'url'        => 'gaji',
+                    'can'        => 'gaji-list',
+                    'icon'       => 'fas fa-fw fa-money-check',
+                ],
+
+                [
+                    'text'       => 'Generate Gaji',
+                    'url'        => 'gaji/create',
+                    'can'        => 'gaji-create',
+                    'icon'       => 'fas fa-fw fa-money-bill-wave',
+                ],
+                
                 [
                     'text'       => 'Tunjangan',
                     'url'        => 'tunjangan',
                     'can'        => 'tunjangan-list',
                     'icon'       => 'fas fa-fw fa-gift',
                 ],
+
                 [
                     'text'       => 'Potongan',
                     'url'        => 'potongan',
@@ -317,12 +348,6 @@ return [
                     'icon'       => 'fas fa-fw fa-money-check',
                 ],
             ]
-        ],
-        [
-            'text'       => 'Generate Gaji',
-            'url'        => 'gaji/create',
-            'can'        => 'gaji-create',
-            'icon'       => 'fas fa-fw fa-money-bill',
         ],
 
     ],

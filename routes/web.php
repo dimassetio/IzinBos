@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::resource('potongan', PotonganController::class);
     Route::patch('/izin/confirm/{id}', 'IzinController@confirm')->name('izin.confirm');
     Route::get('/izin/data', 'IzinController@data')->name('izin.data');
+    Route::get('/izin/laporan', 'IzinController@laporan')->name('izin.laporan');
     Route::resource('izin', IzinController::class);
     Route::resource('gaji', GajiController::class);
 });

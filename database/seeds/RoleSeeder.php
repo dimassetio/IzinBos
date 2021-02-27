@@ -15,17 +15,17 @@ class RoleSeeder extends Seeder
     {
         $Role=Role::create(['name' => 'admin']);
 
-        for ($i=0; $i<=40; $i++) {
+        for ($i=0; $i<=39; $i++) {
             $Role->GivePermissionTo($i);
         }
         
         $Role=Role::create(['name' => 'sales']);
-        $Role->GivePermissionTo(14,18,23,27,31,32,33,37);
+        $Role->GivePermissionTo(14,18,23,27,31,32,33,36);
         
         $Role=Role::create(['name' => 'produksi']);
-        $Role->GivePermissionTo(14,18,23,27,31,32,33,37);
+        $Role->GivePermissionTo(14,18,23,27,31,32,33,36);
         
         $Role=Role::create(['name' => 'akuntan']);
-        $Role->GivePermissionTo(14,18,23,27,31,32,33,37);
+        $Role->GivePermissionTo(14,18,23,27,31,32,33,36);
     }
 }
